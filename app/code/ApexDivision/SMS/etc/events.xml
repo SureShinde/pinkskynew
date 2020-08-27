@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_after">
+<!--        sales_order_save_after >> this event is when order updated -->
+        <observer name="sms_sales_order_place_after" instance="ApexDivision\SMS\Observer\NewOrderObserver" />
+    </event>
+</config>

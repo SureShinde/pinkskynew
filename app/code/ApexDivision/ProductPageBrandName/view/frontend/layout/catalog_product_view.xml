@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title">
+
+            <block class="MGS\Brand\Block\Product\Brand" name="product.brand_name"
+                   template="ApexDivision_ProductPageBrandName::catalog/product/view/brandname.phtml" after="page.title">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

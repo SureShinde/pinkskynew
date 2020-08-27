@@ -1,0 +1,8 @@
+<?php
+$qty = $block->getSalableQty();
+
+if($qty > 0) {
+    echo '<span class="label">Estimated delivery in 2 hours</span>';
+} else {
+    echo '<span class="label">Estimated delivery in 48 hours</span>';
+}

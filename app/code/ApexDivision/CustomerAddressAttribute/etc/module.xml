@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+  ~ @author     Apex Division <apexdivision@gmail.com>
+  ~ @copyright  2020  Apex Division (https://apexdivision.com)
+  ~ @license     Commercial
+  -->
+<config  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="ApexDivision_CustomerAddressAttribute" setup_version="1.0.0">
+    </module>
+</config>
