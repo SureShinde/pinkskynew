@@ -1,7 +1,7 @@
 <?php
 return [
     'backend' => [
-        'frontName' => 'admin_13mq1w'
+        'frontName' => 'admin_25fv9hbv'
     ],
     'crypt' => [
         'key' => '2b7828283b29f9c782e81a6a96afefe4'
@@ -11,10 +11,16 @@ return [
         'connection' => [
             'default' => [
                 'host' => 'localhost',
-                'dbname' => 'tjuk4home_mage',
-                'username' => 'tjuk4home_mage@t',
-                'password' => 'M+aqG8S7RmyW}FPA',
-                'active' => '1'
+                'dbname' => 'pinksky_beta',
+                'username' => 'mysql@beta.pinks',
+                'password' => 'v6CbH%donNye',
+                'active' => '1',
+                'model' => 'mysql4',
+                'engine' => 'innodb',
+                'initStatements' => 'SET NAMES utf8;',
+                'driver_options' => [
+                    1014 => false
+                ]
             ]
         ]
     ],
@@ -31,17 +37,17 @@ return [
     'cache' => [
         'frontend' => [
             'default' => [
-                'id_prefix' => 'd0d_'
+                'id_prefix' => '775_'
             ],
             'page_cache' => [
-                'id_prefix' => 'd0d_'
+                'id_prefix' => '775_'
             ]
         ]
     ],
     'lock' => [
         'provider' => 'db',
         'config' => [
-            'prefix' => null
+            'prefix' => ''
         ]
     ],
     'cache_types' => [
@@ -67,5 +73,8 @@ return [
     ],
     'install' => [
         'date' => 'Thu, 05 Dec 2019 07:09:44 +0000'
+    ],
+    'queue' => [
+        'consumers_wait_for_messages' => 1
     ]
 ];
