@@ -17,7 +17,7 @@
             </action>
         </referenceBlock>
 
-        <referenceBlock as="default">
+        <referenceBlock name="order_items.default">
             <action method="setTemplate" ifconfig="gst/codilar/status">
                 <argument name="template" xsi:type="string">Codilar_Gst::order/invoice/create/items/renderer/default.phtml</argument>
             </action>

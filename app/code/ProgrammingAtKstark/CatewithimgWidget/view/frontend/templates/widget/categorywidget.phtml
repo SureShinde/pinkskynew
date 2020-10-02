@@ -1,0 +1,53 @@
+<?php
+    $categories = $this->getCategoryCollection();
+    $categoryHelper = $this->getCategoryHelper();
+?>
+<div class="widget block block-static-block cwiw" id="catewithimg">
+    <div class="block-content">
+        <div class="content-heading">
+            <h2 class="title"><?php echo $this->getMainTitle(); ?></h2>
+            <p class="info"><?php echo $this->getTagLine(); ?></p>
+        </div>
+        <div class="row owl-carousel">
+        <?php
+        foreach($categories as $category):
+            $cat = $this->getCategorymodel($category->getId());
+            $image = $cat->getImageUrl();
+        ?>
+            <?php if($image != null): ?>
+                <div class="category-item">
+                    <a class="category_name" href="<?php echo $cat->getUrl(); ?>">
+                       <img src="<?php echo $image; ?>" class="img-responsive category_image" alt="<?php echo $cat->getName(); ?>" width="350" height="350"/>
+                        <h3><span><?php echo $cat->getName(); ?></span></h3>
+                    </a>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+require(['jquery','owl.carousel/owl.carousel.min'],function($){
+    var element = '#catewithimg .owl-carousel';
+    $(element).owlCarousel({
+        autoplay:true,
+        autoplayTimeout:5000,
+        autoplayHoverPause:true,
+        loop:true,
+        navRewind:true,
+        margin:10,
+        nav:true,
+        navText:["<em class='porto-icon-left-open-huge'></em>","<em class='porto-icon-right-open-huge'></em>"],
+        dots:false,
+        responsive:{
+            0:{items:1},
+            640:{items:1},
+            768:{items:2},
+            992:{items:3},
+            1200:{items:3}
+        }
+    });
+});
+
+</script>

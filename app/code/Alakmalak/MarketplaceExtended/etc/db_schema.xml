@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="marketplace_userdata" resource="default" engine="innodb" comment="Marketplace Product Table">
+        <column xsi:type="varchar" name="whatsapp_id" length="255" comment="Whatsapp Number"/>
+        <column xsi:type="varchar" name="whatsapp_message" length="255" comment="Whatsapp Message"/>
+        <column xsi:type="int" name="whatsapp_active" unsigned="true" nullable="false" identity="false" padding="10" default="0" comment="Whatsapp Active Status"/>
+    </table>
+</schema>

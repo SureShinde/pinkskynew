@@ -1,0 +1,9 @@
+{
+    "marketplace_userdata": {
+        "column": {
+            "whatsapp_id": true,
+            "whatsapp_message": true,
+            "whatsapp_active": true
+        }
+    }
+}

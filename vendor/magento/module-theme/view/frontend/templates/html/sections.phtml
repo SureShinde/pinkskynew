@@ -16,7 +16,8 @@ $groupCss = $block->getGroupCss();
         <?php $layout = $block->getLayout(); ?>
         <div class="section-items <?= $block->escapeHtmlAttr($groupCss) ?>-items"
              data-mage-init='{"tabs":{"openedState":"active"}}'>
-            <?php foreach ($detailedInfoGroup as $name) :?>
+            <?php
+            foreach ($detailedInfoGroup as $name) :?>
                 <?php
                     $html = $layout->renderElement($name);
                 if (!trim($html) && ($block->getUseForce() != true)) {
