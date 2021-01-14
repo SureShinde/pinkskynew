@@ -22,7 +22,7 @@ $withdrawal_start = $helper->getConfig('general_settings/withdrawal_start');
             </div>
             <div class="input_fields_form form-inline request-amount-money col-lg-6 col-md-6 col-sm-12 col-xs-12 ">
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 input-blance">
-                    <input id="request_amount" name="amount" placeholder="<?php echo __('Request Amount'); ?>" data-validate="{'required-number':true, 'validate-greater-than-zero':true}" type="text">
+                    <input id="request_amount" name="amount" placeholder="<?php echo __('Request Amount'); ?>" data-validate="{'required-number':true, 'validate-greater-than-zero':true}" type="text" style="position: relative;z-index: 1;">
                     <label id="amount-error" style="color:red;font-size: 12px;font-style: italic;" for="amount"></label>
                     <input type="hidden" id="from_request_page" name="from_request_page" value="1">
                     <input type="hidden" name="request_page" value="withdraw_request">
@@ -45,6 +45,9 @@ $withdrawal_start = $helper->getConfig('general_settings/withdrawal_start');
                         <ul class="payment_type">
                             <li><a href="" id="paypal"><?php echo __("Paypal"); ?></a></li>
                             <li><a href="" id="banktransfer"><?php echo __("Bank Transfer"); ?></a></li>
+                            <!-- <li><a href="" id="skrill"><?php echo __("Skrill"); ?></a></li> -->
+                            <!-- <li><a href="" id="payoneer"><?php echo __("Payoneer"); ?></a></li> -->
+                            <!-- <li><a href="" id="braintree"><?php echo __("BrainTree"); ?></a></li> -->
                         </ul>
                     </div>
                 </div>

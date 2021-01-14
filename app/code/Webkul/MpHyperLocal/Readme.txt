@@ -1,12 +1,8 @@
 #Installation
 
-Magento2 Marketplace Hyperlocal module installation is very easy, please follow the steps for installation.
+Magento2 Marketplace Hyperlocal module installation is very easy, please follow the steps for installation-
 
-As Marketplace Hyperlocal module is a bundle of few extensions, so will need to install those extensions first.
-
-Step 1 - Installation of Webkul Magento2 MpMSI Module, for this extract MpMSI extension zip and follow it's readme.txt file installation steps.
-
-Step 2 - Unzip the MpHyperlocal extension zip and create Webkul(vendor) and MpHyperlocal(module) name folder inside your magento/app/code/ directory and then move all module's files into magento root directory Magento2/app/code/Webkul/MpHyperlocal/ folder.
+1. Unzip the respective extension zip and create Webkul(vendor) and MpHyperlocal(module) name folder inside your magento/app/code/ directory and then move all module's files into magento root directory Magento2/app/code/Webkul/MpHyperlocal/ folder.
 
 Run Following Command via terminal
 -----------------------------------

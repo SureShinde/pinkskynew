@@ -37,7 +37,7 @@ class ShipRate extends AbstractModel implements ShipRateInterface
      */
     protected function _construct()
     {
-        $this->_init(\Webkul\MpHyperLocal\Model\ResourceModel\ShipRate::class);
+        $this->_init('Webkul\MpHyperLocal\Model\ResourceModel\ShipRate');
     }
     /**
      * Get EntityId.

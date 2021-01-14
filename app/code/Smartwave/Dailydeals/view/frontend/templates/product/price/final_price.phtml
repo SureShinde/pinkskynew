@@ -6,6 +6,19 @@
 
 // @codingStandardsIgnoreFile
 
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+if ($customerSession->isLoggedIn()) {
+    $customerSession->getCustomerId();  // get Customer Id
+    $customerSession->getCustomerGroupId();
+    $customerSession->getCustomer();
+    $customerSession->getCustomerData();
+
+    $customerSession->getCustomer()->getName();  // get  Full Name
+   $customerSession->getCustomer()->getEmail(); // get Email
+}
+
 ?>
 
 
@@ -17,7 +30,6 @@ $helper=$this->helper('Smartwave\Dailydeals\Helper\Data');
 $productId = $block->getSaleableItem()->getId();
 
 
-
 /** ex: \Magento\Catalog\Pricing\Price\RegularPrice */
 /** @var \Magento\Framework\Pricing\Price\PriceInterface $priceModel */
 $priceModel = $block->getPriceType('regular_price');
@@ -27,7 +39,13 @@ $priceModel = $block->getPriceType('regular_price');
 $finalPriceModel = $block->getPriceType('final_price');
 $idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
 $schema = ($block->getZone() == 'item_view') ? true : false;
+
 ?>
+
+<!-- <div style="margin-left: 50%;">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $block->getRequest()->getUriString();?>&t=<?php echo $customerSession->getCustomer()->getName(); ?> has Liked this product." onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Like product">
+        <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/facebook-like.png'; ?>" alt="Facebook" width="20%">
+</div> -->
 <?php if($helper->isDealProduct($productId)) : ?>
     <?php
         $deal_final_price_amount = number_format($helper->getDealproductbyId($productId),2);
@@ -47,6 +65,7 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
             <span id="product-price-<?php echo $idSuffix; ?>" data-price-amount="<?php echo $deal_final_price_amount; ?>" data-price-type="finalPrice" class="price-wrapper ">
                 <span class="price"><?php echo $helper->getcurrencySymbol().''.$deal_final_price_amount; ?></span>
             </span>
+                
         </span>
     </span>
 <?php elseif ($block->hasSpecialPrice()): ?>
@@ -88,3 +107,6 @@ $schema = ($block->getZone() == 'item_view') ? true : false;
         </span>
     <?php endif?>
 <?php endif; ?>
+<!-- 
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0&appId=495265131185116&autoLogAppEvents=1" nonce="MsmkFd4d"></script> -->

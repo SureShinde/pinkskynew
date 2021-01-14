@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Model;
 
 class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
@@ -80,6 +79,7 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
     protected $session;
 
 
+
     /**
      * Rule type actions
      */
@@ -111,7 +111,7 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
      * @var string
      */
     protected $_eventObject = 'rule';
-
+    
 
     /**
      * @var \Magento\SalesRule\Model\Rule\Condition\CombineFactory
@@ -169,10 +169,12 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
         \Magento\Customer\Model\Session $customerSession,
 
         array $data = []
-    )
-    {
+        ) {
         $this->_resource = $resource;
         $this->_resourceModel = $resourceModel;
+
+        // $this->_formFactory = $formFactory;
+        // $this->_localeDate = $localeDate;
 
         $this->_campaignlHelper = $campaignlHelper;
         $this->_campaignFactory = $campaignFactory;
@@ -206,6 +208,7 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
         $this->setIdFieldName('campaign_id');
     }
 
+    
 
     /**
      * Initialize rule model data from array.
@@ -244,7 +247,6 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
     {
         return $this->_condProdCombineF->create();
     }
-
     /**
      * Get sales rule customer group Ids
      *
@@ -293,7 +295,6 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
 
         return $this->_getData('store_labels');
     }
-
     /**
      * @return string
      */
@@ -368,6 +369,7 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
     //--My FUNCTION ================================================================================
 
 
+
     /**
      * Prevent blocks recursion
      *
@@ -382,14 +384,14 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
         }
         throw new \Magento\Framework\Exception\LocalizedException(
             __('Make sure that category content does not reference the block itself.')
-        );
+            );
     }
 
     /**
      * [loadByAttribute]
      * @param  [type] $attribute
-     * @param  [type] $value
-     * @return [type]
+     * @param  [type] $value    
+     * @return [type]           
      */
     public function loadByAttribute($attribute, $value)
     {
@@ -397,19 +399,18 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
         return $this;
     }
 
-    public function loadListByAttribute($display_is_guest, $group_id = 0)
-    {
+    public function loadListByAttribute($display_is_guest, $group_id = 0){
 
         $rows = array();
         $table_name = $this->_resourceModel->getTableName('lof_affiliate_campaign');
         $connection = $this->_resource->getConnection();
-        $select = $connection->select()->from(['ca' => $table_name]);
+        $select = $connection->select()->from( ['ca' => $table_name] );
 
-        if ($display_is_guest == '1') {
+        if($display_is_guest == '1') {
             // Allow Guest see
             $select->where('ca.display = ?', $display_is_guest);
         } else {
-            $select->where('ca.display = ?', $display_is_guest)->where('ca.group_id = ?', $group_id);
+            $select->where('ca.display = ?', $display_is_guest)->where( 'ca.group_id = ?', $group_id );
         }
 
         $rows = $connection->fetchAll($select);
@@ -434,8 +435,7 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
      * [getYesNoField]
      * @return [array]
      */
-    public function getYesNoField()
-    {
+    public function getYesNoField(){
         return [self::STATUS_ENABLED => __('Yes'), self::STATUS_DISABLED => __('No')];
     }
 
@@ -443,18 +443,16 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
      * [getDiscountField]
      * @return [array]
      */
-    public function getDiscountField()
-    {
+    public function getDiscountField(){
         return ['by_percent' => __('Percent of current cart total'),
-            'cart_fixed' => __('Fixed Amount Commission For Whole Cart')];
+         'cart_fixed' => __('Fixed Amount Commission For Whole Cart')];
     }
 
     /**
      * [getDisplayField]
      * @return [array]
      */
-    public function getDisplayField()
-    {
+    public function getDisplayField(){
         return [self::STATUS_ENABLED => __('Allow Guest'), self::STATUS_DISABLED => __('Affiliate Member Only')];
     }
 
@@ -470,9 +468,9 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
         $table_name = $this->_resourceModel->getTableName('lof_affiliate_group');
         $connection = $this->_resource->getConnection();
         $select = $connection->select()->from(
-            ['ce' => $table_name],
-            ['group_id', 'name']
-        );
+                ['ce' => $table_name],
+                ['group_id', 'name']
+            );
         $rows = $connection->fetchAll($select);
 
         foreach ($rows as $key => $result) {
@@ -488,18 +486,17 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
     /**
      * [getListCampaigns]
      * @param  [int] $group_id
-     * @return [array]
+     * @return [array]          
      */
-    public function getListCampaigns($group_id)
-    {
+    public function getListCampaigns($group_id){
 
         $table_name = $this->_resourceModel->getTableName('lof_affiliate_campaign');
         $connection = $this->_resource->getConnection();
         $select = $connection->select()->from(
-            ['ca' => $table_name]
-        );
+                ['ca' => $table_name]
+            );
         $select->where('ca.group_id = ?', $group_id)
-            ->where('ca.is_active=?', 1);
+        ->where('ca.is_active=?',1);
 
         $rows = $connection->fetchAll($select);
 
@@ -508,16 +505,15 @@ class CampaignAffiliate extends \Magento\Rule\Model\AbstractModel
         return $rows;
     }
 
-    public function getListCampaignsByDate($campaign_code, $currentDate)
-    {
+    public function getListCampaignsByDate($campaign_code, $currentDate){
 
         $table_name = $this->_resourceModel->getTableName('lof_affiliate_campaign');
         $connection = $this->_resource->getConnection();
         $select = $connection->select()->from(
-            ['ca' => $table_name]
-        );
-        $select->where('ca.to_date >= "' . $currentDate . '"');
-        $select->where('ca.from_date < "' . $currentDate . '"');
+                ['ca' => $table_name]
+            );
+        $select->where('ca.to_date >= "'.$currentDate.'"');
+        $select->where('ca.from_date < "'.$currentDate.'"');
         $select->where('ca.tracking_code = ?', $campaign_code);
 
         $rows = $connection->fetchRow($select);

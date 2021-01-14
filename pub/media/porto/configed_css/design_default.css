@@ -1,6 +1,6 @@
 /**
  * WARNING: Do not change this file. Your changes will be lost.
- * 2020-09-17 02:46:43 */
+ * 2020-10-30 09:26:18 */
 
 html, body { 
         font-family: EB Garamond;
@@ -57,10 +57,13 @@ a,a:hover, .page-header a, .page-header a:hover, .page-header .panel.header .hea
 a, a:focus {color:#333333}
 a:hover{color:#302E2A}
 button.action.primary{
-    background-color:#333333;
-    border-color:#333333;
+    background-color:#f4f4f4;
+    border-color:#f4f4f4; color: #6f6e6c
 }
 button.action.primary:hover{
+	background-color: #f36daa !important;
+border-color: #f36daa !important;
+color: #fff;
 }
 .product-item-actions .action.towishlist,.product-addto-links .action.towishlist,.action.towishlist{color:#302E2A;border-color:#302E2A}
 .product-item-actions .action.towishlist:hover,.product-addto-links .action.towishlist:hover,.action.towishlist:hover{color:#302E2A;border-color:#302E2A}
@@ -114,3 +117,8 @@ button.action.primary:hover{
 .footer-middle-2 a:hover{
     color:#000000;
 }
+
+
+.wk-mp-collection-view-btn a{background-color: #f36daa !important;
+border-color: #f36daa !important;
+color: #fff;}

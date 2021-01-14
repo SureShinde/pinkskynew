@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\AccountAffiliate\Edit\Tab;
 
 class Transaction extends \Magento\Backend\Block\Widget\Grid\Extended
@@ -44,8 +43,7 @@ class Transaction extends \Magento\Backend\Block\Widget\Grid\Extended
         \Magento\Framework\Registry $coreRegistry,
         \Lof\Affiliate\Model\TransactionAffiliate $transaction,
         array $data = []
-    )
-    {
+    ) {
         $this->_coreRegistry = $coreRegistry;
         $this->_transaction = $transaction;
         parent::__construct($context, $backendHelper, $data);
@@ -73,12 +71,12 @@ class Transaction extends \Magento\Backend\Block\Widget\Grid\Extended
         $this->addColumn('transaction_id', ['header' => __('Id'), 'width' => '100', 'index' => 'transaction_id']);
         $this->addColumn('increment_id', ['header' => __('Order'), 'width' => '100', 'index' => 'increment_id']);
         $this->addColumn(
-            'customer_email',
+            'customer_email', 
             [
-                'header' => __('Customer Email'),
-                'width' => '100',
+                'header' => __('Customer Email'), 
+                'width' => '100', 
                 'index' => 'customer_email'
-            ]
+                ]
         );
         $this->addColumn(
             'order_total',
@@ -105,8 +103,8 @@ class Transaction extends \Magento\Backend\Block\Widget\Grid\Extended
 
     public function getGridUrl()
     {
-        return $this->getUrl(
-            'affiliate/*/transaction/account_id/' . $this->_coreRegistry->registry('affiliate_account')->getId(),
+        return  $this->getUrl(
+            'affiliate/*/transaction/account_id/'.$this->_coreRegistry->registry('affiliate_account')->getId(),
             ['_current' => true]
         );
     }

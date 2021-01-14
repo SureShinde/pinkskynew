@@ -2,17 +2,6 @@ Legend
 
 + Features
 - Bugs
--------------------------------- Version 3.0.2 --------------------------------------
-    + Customer cannot proceed without setting their location.
-    + We have added product quickview on the seller collection page.
-    + Customer can choose the previously used address to select their location.
-    - Resolve minor issue and bugs.
-
--------------------------------- Version 3.0.1 --------------------------------------
-    + Seller can add their radius value.
-    + Admin can set single seller/multi seller checkout.
-    + Buyer can shop through the seller's shop.
-    + Seller can create the outlets as well.
 
 -------------------------------- Version 3.0.0 --------------------------------------
     + Compatible with Magento 2.3.x and Marketplace 2.2.x version.

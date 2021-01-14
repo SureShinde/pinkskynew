@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\WithdrawAffiliate\Edit\Tab;
 
 class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Magento\Backend\Block\Widget\Tab\TabInterface
@@ -49,8 +48,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
         \Lof\Affiliate\Model\ResourceModel\AccountAffiliate\Collection $accountCollection,
         \Lof\Affiliate\Helper\Data $dataHelper,
         array $data = []
-    )
-    {
+    ) {
         $this->_systemStore = $systemStore;
         $this->_wysiwygConfig = $wysiwygConfig;
         $this->_accountCollection = $accountCollection;
@@ -76,10 +74,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
         } else {
             $isElementDisabled = true;
         }
-        $this->_eventManager->dispatch(
-            'lof_check_license',
-            ['obj' => $this,'ex'=>'Lof_Affiliate']
-            );
+
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
 
@@ -120,7 +115,19 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                 'disabled' => $isElementDisabled
             ]
         );
-
+        
+        // $fieldset->addField(
+        //     'refering_website',
+        //     'text',
+        //     [
+        //         'name' => 'refering_website',
+        //         'label' => __('Refering Website'),
+        //         'title' => __('Refering Website'),
+        //         'bold' => true,
+        //         // 'required' => true,
+        //         'disabled' => $isElementDisabled
+        //     ]
+        // );
         $fieldset->addField(
             'balance',
             'label',
@@ -183,8 +190,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
         return parent::_prepareForm();
     }
 
-    public function getAccountCollection()
-    {
+    public function getAccountCollection(){
         $model = $this->_coreRegistry->registry('affiliate_account');
         $collection = $this->_accountCollection
             ->addFieldToFilter('accountaffiliate_id', array('neq' => $model->getId()));

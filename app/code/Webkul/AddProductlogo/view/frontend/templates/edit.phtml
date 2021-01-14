@@ -1,0 +1,45 @@
+<?php
+// use Webkul\Grid\Block\Edit;
+ $record = $block->getEditRecord();
+ $image_path = $block->getUrl("pub/media/productlogo/");
+ $image = $record['featured_image'];
+ $final_path = $image_path.$image;
+
+ $image_one = $record['featured_image_one'];
+ $final_path_one = $image_path.$image_one;
+
+ $image_two = $record['featured_image_two'];
+ $final_path_two = $image_path.$image_two;
+
+ $image_three = $record['featured_image_three'];
+ $final_path_three = $image_path.$image_three;
+
+ $image_four = $record['featured_image_four'];
+ $final_path_four = $image_path.$image_four;
+?>
+<table>
+<form method="post" action="<?php echo $block->getUrl('addproductlogo/index/update'); ?>" enctype="multipart/form-data">
+<input type="hidden" name="editRecordId" value="<?php echo $record['post_id']; ?>">
+        <input type="file" name="logo">
+        <?php if(!empty($image)){ ?>
+        	<img src="<?php echo $final_path; ?>" alt="" height="50" width="100">
+        <?php } ?>
+        <input type="file" name="logo_one">
+        <?php if(!empty($image_one)){ ?>
+        	<img src="<?php echo $final_path_one; ?>" alt="" height="50" width="100">
+        <?php } ?>
+        <input type="file" name="logo_two">
+        <?php if(!empty($image_two)){ ?>
+        	<img src="<?php echo $final_path_two; ?>" alt="" height="50" width="100">
+        <?php } ?>
+        <input type="file" name="logo_three">
+        <?php if(!empty($image_three)){ ?>
+        	<img src="<?php echo $final_path_three; ?>" alt="" height="50" width="100">
+        <?php } ?>
+        <input type="file" name="logo_four">
+        <?php if(!empty($image_four)){ ?>
+        	<img src="<?php echo $final_path_four; ?>" alt="" height="50" width="100">
+        <?php } ?>
+        <input type="submit" name="submit">
+    </form>
+</table>

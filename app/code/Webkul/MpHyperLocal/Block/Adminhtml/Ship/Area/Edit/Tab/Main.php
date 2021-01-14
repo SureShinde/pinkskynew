@@ -34,6 +34,7 @@ class Main extends Generic
         $this->helper = $helper;
     }
 
+
     /**
      * Prepare form fields
      *
@@ -86,12 +87,7 @@ class Main extends Generic
                 'title' => __('Address Type'),
                 'class' => 'required-entry',
                 'required' => true,
-                'options' => [
-                    '' => __('--select--'),
-                    'city' => __('City'),
-                    'state' => __('State'),
-                    'country' => __('Country')
-                ]
+                'options' => ['' => __('--select--'),'city' => __('City'), 'state' => __('State') , 'country' => __('Country')]
             ]
         );
 

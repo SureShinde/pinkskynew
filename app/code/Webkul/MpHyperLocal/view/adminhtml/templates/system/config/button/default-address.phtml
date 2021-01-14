@@ -14,11 +14,11 @@
 </div>
 <script type="text/x-magento-init">
     {
-        "body": {
-            "autofilladdress": {
-                "googleApiKey":"<?= $block->getHelper()->getGoogleApiKey() ?>",
-                "savedAddress":"<?= $block->getHelper()->getAdminAddress() ?>"
-            }
-        }
+		"body": {
+			"autofilladdress": {
+				"googleApiKey":"<?php echo $block->getHelper()->getGoogleApiKey() ?>",
+				"savedAddress":"<?php echo $block->getHelper()->getAdminAddress() ?>"
+			}
+		}
     }
 </script>

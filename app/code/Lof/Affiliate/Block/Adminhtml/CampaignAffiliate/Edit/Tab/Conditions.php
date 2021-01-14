@@ -18,7 +18,6 @@
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\CampaignAffiliate\Edit\Tab;
 
 use Magento\Backend\Block\Widget\Form\Generic;
@@ -53,8 +52,7 @@ class Conditions extends Generic implements TabInterface
         \Magento\Rule\Block\Conditions $conditions,
         \Magento\Backend\Block\Widget\Form\Renderer\Fieldset $rendererFieldset,
         array $data = []
-    )
-    {
+    ) {
         $this->rendererFieldset = $rendererFieldset;
         $this->_conditions = $conditions;
         parent::__construct($context, $registry, $formFactory, $data);
@@ -143,7 +141,6 @@ class Conditions extends Generic implements TabInterface
 
         return parent::_prepareForm();
     }
-
     /**
      * Check permission for passed action
      *
@@ -153,5 +150,5 @@ class Conditions extends Generic implements TabInterface
     protected function _isAllowedAction($resourceId)
     {
         return $this->_authorization->isAllowed($resourceId);
-    }
+    } 
 }

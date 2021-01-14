@@ -13,20 +13,28 @@
 <?php
     $getTopSaleProducts = $block->getTopSaleProducts();
     $totalOrders = $block->getTotalOrders();
+    $newOrders = $block->getNewOrders();
     $approvedOrders = $block->getPendingOrders();
     $processOrders = $block->getProcessingOrders();
     $completeOrders = $block->getCompletedOrders();
+    $borderNew = 2;
     $borderApprove = 2;
     $borderProcess = 2;
     $borderComplete = 2;
 if ($totalOrders) {
+    $new = ($newOrders*100)/$totalOrders;
     $approve = ($approvedOrders*100)/$totalOrders;
     $process = ($processOrders*100)/$totalOrders;
     $complete = ($completeOrders*100)/$totalOrders;
 } else {
+    $new = 0;
     $approve = 0;
     $process = 0;
     $complete = 0;
+}
+
+if (!$new) {
+    $borderNew = 0;
 }
 if (!$approve) {
     $borderApprove = 0;
@@ -43,6 +51,14 @@ if ((int)$totalOrdersK) {
 } else {
     $totalOrdersToDisplay = $totalOrders;
 }
+
+$newOrdersK = $newOrders / 1000;
+if ((int)$newOrdersK) {
+    $newOrdersToDisplay = $newOrdersK."K";
+} else {
+    $newOrdersToDisplay = $newOrders;
+}
+
     $approvedOrdersK = $approvedOrders / 1000;
 if ((int)$approvedOrdersK) {
     $approvedOrdersToDisplay = $approvedOrdersK."K";
@@ -104,6 +120,19 @@ if ((int)$lastMonthCustomersK) {
                 </div>
             </div>
             <div class="wk-mp-dashboard-total-right">
+               <!-- <div class="wk-mp-dashboard-total-progress-bar">
+                    <small>
+                        <span class="wk-mp-float-left">
+                            <?= /* @noEscape */ __('New') ?>
+                        </span>
+                        <span class="wk-mp-float-right">
+                            <?= /* @noEscape */ $newOrdersToDisplay ?>
+                        </span>
+                        <span
+                            class="wk-mp-progress-color-bar wk-mp-approve-color-bar"
+                            style="width:<?= /* @noEscape */ $new; ?>%; border-width:<?= /* @noEscape */ $borderNew?>px;"></span>
+                    </small>
+                </div> -->
                 <div class="wk-mp-dashboard-total-progress-bar">
                     <small>
                         <span class="wk-mp-float-left">

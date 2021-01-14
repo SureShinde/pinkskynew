@@ -1,31 +1,29 @@
-<?php
+<?php 
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
-namespace Lof\Affiliate\Controller\Account;
+namespace Lof\Affiliate\Controller\Account; 
 
 use Magento\Customer\Model\Session;
 use Magento\Framework\Stdlib\DateTime\Timezone;
 
-class InfoPost extends \Magento\Framework\App\Action\Action
-{
+class InfoPost extends \Magento\Framework\App\Action\Action {
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */
@@ -42,7 +40,7 @@ class InfoPost extends \Magento\Framework\App\Action\Action
     protected $_stdTimezone;
 
     protected $_dataHelper;
-
+    
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
@@ -50,27 +48,25 @@ class InfoPost extends \Magento\Framework\App\Action\Action
         Session $customerSession,
         Timezone $stdTimezone,
         \Lof\Affiliate\Helper\Data $dataHelper
-    )
-    {
+        ){
         $this->resultPageFactory = $resultPageFactory;
         $this->session = $customerSession;
         $this->accountAffiliateFactory = $accountAffiliateFactory;
         $this->_stdTimezone = $stdTimezone;
         $this->_dataHelper = $dataHelper;
         parent::__construct($context);
-    }
-
+    } 
     /**
-     * Affiliate Index, shows a list of recent blog posts.
+     * Blog Index, shows a list of recent blog posts.
      *
      * @return \Magento\Framework\View\Result\PageFactory
      */
     public function execute()
     {
-
+        
         $resultRedirect = $this->resultRedirectFactory->create();
-        if ($this->session->isLoggedIn() && !$this->checkAccountExit()) {
-            $data = $this->getRequest()->getParams();
+        if($this->session->isLoggedIn()  && !$this->checkAccountExit()){
+            $data=$this->getRequest()->getParams();
             $model = $this->_objectManager->create('Lof\Affiliate\Model\AccountAffiliate');
             $customerData = $this->session->getCustomer();
             $customerId = $this->session->getCustomerId();
@@ -79,15 +75,16 @@ class InfoPost extends \Magento\Framework\App\Action\Action
             $data['customer_id'] = $customerId;
             $data['lastname'] = $customerData->getLastname();
             $data['firstname'] = $customerData->getFirstname();
-            $data['is_active'] = '1';
+            $data['is_active'] = '1';            
             $data['commission'] = '0';
-            $data['tracking_code'] = $tracking_code;
+            $data['tracking_code'] =  $tracking_code;
             $data['create_at'] = $createTimeNow;
+            // print_r($data);die('minh');
             $model->setData($data);
             $model->save();
             $resultRedirect->setPath('*/*/');
             return $resultRedirect;
-        } else {
+        }else{
             $resultRedirect->setPath('affiliate/affiliate/home');
             return $resultRedirect;
         }
@@ -96,13 +93,12 @@ class InfoPost extends \Magento\Framework\App\Action\Action
         $resultPage->getConfig()->getTitle()->set(__('Your Information'));
         return $resultPage;
     }
-
     public function checkAccountExit()
     {
         $customerId = $this->session->getCustomerId();
         $collection = $this->accountAffiliateFactory->create()
-            ->addFieldToFilter('customer_id', $customerId);
+        ->addFieldToFilter('customer_id',$customerId);
         $count = count($collection);
-        return ($count > 0) ? true : false;
+        return ($count > 0)?true:false;
     }
 }

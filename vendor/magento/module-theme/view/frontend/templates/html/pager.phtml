@@ -85,7 +85,8 @@
 
             <?php if ($block->canShowNextJump()) : ?>
                 <li class="item">
-                    <a class="page next jump" title="" href="<?= $block->escapeUrl($block->getNextJumpUrl()) ?>">
+                    <!-- <a class="page next jump" title="" href="<?= $block->escapeUrl($block->getNextJumpUrl()) ?> "> -->
+                    <a class="page" title="" href="<?= $block->escapeUrl($block->getNextJumpUrl()) ?> ">
                         <span>...</span>
                     </a>
                 </li>

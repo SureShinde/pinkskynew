@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Ui\Component\Listing\Column;
 
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -36,8 +35,7 @@ class Price extends Column
         PriceCurrencyInterface $priceFormatter,
         array $components = [],
         array $data = []
-    )
-    {
+    ) {
         $this->priceFormatter = $priceFormatter;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }

@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -70,8 +69,7 @@ class Url
         RequestInterface $request,
         UrlInterface $urlBuilder,
         EncoderInterface $urlEncoder
-    )
-    {
+    ) {
         $this->request = $request;
         $this->urlBuilder = $urlBuilder;
         $this->scopeConfig = $scopeConfig;

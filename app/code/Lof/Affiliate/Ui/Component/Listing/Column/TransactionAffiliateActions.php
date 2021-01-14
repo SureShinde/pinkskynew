@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Ui\Component\Listing\Column;
 
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -45,13 +44,13 @@ class TransactionAffiliateActions extends Column
     private $editUrl;
 
     /**
-     * @param ContextInterface $context
-     * @param UiComponentFactory $uiComponentFactory
-     * @param UrlBuilder $actionUrlBuilder
-     * @param UrlInterface $urlBuilder
-     * @param array $components
-     * @param array $data
-     * @param [type]             $editUrl
+     * @param ContextInterface   $context            
+     * @param UiComponentFactory $uiComponentFactory 
+     * @param UrlBuilder         $actionUrlBuilder   
+     * @param UrlInterface       $urlBuilder         
+     * @param array              $components         
+     * @param array              $data               
+     * @param [type]             $editUrl            
      */
     public function __construct(
         ContextInterface $context,
@@ -61,8 +60,7 @@ class TransactionAffiliateActions extends Column
         array $components = [],
         array $data = [],
         $editUrl = self::MENU_URL_PATH_EDIT
-    )
-    {
+        ) {
         $this->urlBuilder = $urlBuilder;
         $this->actionUrlBuilder = $actionUrlBuilder;
         $this->editUrl = $editUrl;
@@ -82,9 +80,17 @@ class TransactionAffiliateActions extends Column
                 $name = $this->getData('name');
                 if (isset($item['transaction_id'])) {
                     $item[$name]['edit'] = [
-                        'href' => $this->urlBuilder->getUrl($this->editUrl, ['transaction_id' => $item['transaction_id']]),
-                        'label' => __('Edit')
+                    'href' => $this->urlBuilder->getUrl($this->editUrl, ['transaction_id' => $item['transaction_id']]),
+                    'label' => __('Edit')
                     ];
+                    /*$item[$name]['delete'] = [
+                    'href' => $this->urlBuilder->getUrl(self::MENU_URL_PATH_DELETE, ['category_id' => $item['category_id']]),
+                    'label' => __('Delete'),
+                    'confirm' => [
+                    'title' => __('Delete ${ $.$data.title }'),
+                    'message' => __('Are you sure you wan\'t to delete a ${ $.$data.title } record?')
+                    ]
+                    ];*/
                 }
             }
         }

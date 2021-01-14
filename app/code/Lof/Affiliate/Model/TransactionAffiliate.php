@@ -1,35 +1,35 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Model;
 
 class TransactionAffiliate extends \Magento\Framework\Model\AbstractModel
 {
     /**
-     * Affiliate's Statuses
+     * Blog's Statuses
      */
     const STATUS_COMPLETE = 1;
     const STATUS_PENDING = 0;
     const STATUS_CANCEL = 2;
 
+    
 
     /** @var \Magento\Store\Model\StoreManagerInterface */
     protected $_storeManager;
@@ -57,6 +57,16 @@ class TransactionAffiliate extends \Magento\Framework\Model\AbstractModel
     /**
      * Page cache tag
      */
+    /**
+     * @param \Magento\Framework\Model\Context                          $context                  
+     * @param \Magento\Framework\Registry                               $registry                            
+     * @param \Ves\Blog\Model\ResourceModel\Blog|null                      $resource                 
+     * @param \Ves\Blog\Model\ResourceModel\Blog\Collection|null           $resourceCollection       
+     * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory            
+     * @param \Magento\Framework\UrlInterface                           $url                      
+     * @param \Ves\Blog\Helper\Data                                    $brandHelper              
+     * @param array                                                     $data                     
+     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
@@ -65,10 +75,9 @@ class TransactionAffiliate extends \Magento\Framework\Model\AbstractModel
         \Magento\Framework\UrlInterface $url,
         \Lof\Affiliate\Helper\Data $accountlHelper,
         \Magento\Framework\Pricing\Helper\Data $priceHelper,
-        \Magento\Framework\App\ResourceConnection $resourceModel,
+         \Magento\Framework\App\ResourceConnection $resourceModel,
         array $data = []
-    )
-    {
+        ) {
         $this->_url = $url;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->_resource = $resource;
@@ -99,9 +108,8 @@ class TransactionAffiliate extends \Magento\Framework\Model\AbstractModel
         }
         throw new \Magento\Framework\Exception\LocalizedException(
             __('Make sure that category content does not reference the block itself.')
-        );
+            );
     }
-
     public function loadByAttribute($attribute, $value)
     {
         $this->load($value, $attribute);
@@ -112,18 +120,16 @@ class TransactionAffiliate extends \Magento\Framework\Model\AbstractModel
     {
         return $this->priceHelper->currency($price, true, false);
     }
-
-    public function getCountOrderOfMonth($month)
-    {
+    public function getCountOrderOfMonth($month){
         $table_name = $this->_resourceModel->getTableName('sales_order');
         $connection = $this->_resourceModel->getConnection();
         $select = $connection->select()->from(
             $table_name,
             'COUNT(*)'
-        )->where(
+            )->where(
             'MONTH(created_at) = ?',
             $month
-        );
+            );
         return (int)$connection->fetchOne($select);
     }
 
@@ -134,30 +140,29 @@ class TransactionAffiliate extends \Magento\Framework\Model\AbstractModel
         $select = $connection->select()->from(
             $table_name,
             'SUM(base_subtotal)'
-        )->where(
+            )->where(
             'MONTH(created_at) = ?',
             $month
-        );
+            );
         return (int)$connection->fetchOne($select);
     }
 
-    public function getCountMoneyAffOfMonth($month, $aff_email)
+    public function getCountMoneyAffOfMonth($month, $aff_email )
     {
         $table_name = $this->_resourceModel->getTableName('lof_affiliate_transaction');
         $connection = $this->_resourceModel->getConnection();
         $select = $connection->select()->from(
             $table_name,
             'SUM(order_total)'
-        )->where(
+            )->where(
             'MONTH(date_added) = ?',
             $month
-        )->where(
+            )->where(
             'email_aff = ?',
             $aff_email
-        );
+            );
         return (int)$connection->fetchOne($select);
     }
-
     public function getCountOrderAffOfMonth($month, $aff_email)
     {
         $table_name = $this->_resourceModel->getTableName('lof_affiliate_transaction');
@@ -165,31 +170,31 @@ class TransactionAffiliate extends \Magento\Framework\Model\AbstractModel
         $select = $connection->select()->from(
             $table_name,
             'COUNT(*)'
-        )->where(
+            )->where(
             'MONTH(date_added) = ?',
             $month
-        )->where(
+            )->where(
             'email_aff = ?',
             $aff_email
-        );
+            );
         return (int)$connection->fetchOne($select);
     }
 
     public function getAllSalesByDate($date_from, $date_to)
     {
         $table_name = $this->_resourceModel->getTableName('sales_order');
-        $from = date("Y-m-d", strtotime($date_from));
-        $to = date("Y-m-d", strtotime($date_to));
+        $from = date( "Y-m-d", strtotime($date_from) );
+        $to = date( "Y-m-d", strtotime($date_to) );
         $connection = $this->_resourceModel->getConnection();
         $select = $connection->select()->from(
             $table_name
-        )->where(
+            )->where(
             'created_at >= ?',
             $from
-        )->where(
+            )->where(
             'created_at <= ?',
             $to
-        );
+            );
         return $connection->fetchAll($select);
     }
 

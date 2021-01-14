@@ -1,0 +1,142 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
+$partner = $block->getProfileDetail();
+$shopUrl = $block->escapeHtml($partner['shop_url']);
+$sellerId = $partner->getSellerId();
+$sellerProductCount = $helper->getSellerProCount($sellerId);
+$_imageHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+
+$showWishlist = true;
+$showCompare = true;
+$showCart = true;
+?>
+
+<style>
+    .owl-theme .owl-controls .disabled{ display: block; }
+</style>
+<?php $products = $block->getBestsellProducts();?>
+<?php if (count($products)) { ?>
+    <div class="row-am category">
+        <h2 class="h2"><?= $block->escapeHtml(__("Portfolio")) ?></h2>
+        <?php
+        $type = 'widget-new-grid';
+        $viewMode = 'grid';
+        $image = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+        $_helper = $this->helper(\Magento\Catalog\Helper\Output::class);
+        ?>
+            <?php $iterator = 1; ?>
+            <ul id="owlslider" class="categoryslider owl-carousel">
+                <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+                <?php foreach ($products as $_product):
+                    $resizedImageUrl = $_imageHelper->init($_product, 'product_base_image')->resize(300, 300)->getUrl();
+                    ?>
+                    <li class="item product product-item">
+                        <div class="product-item-info">
+                        <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>" class="product photo product-item-photo" tabindex="-1">
+                            <img src="<?php echo $resizedImageUrl; ?>">
+                        </a>
+                        <h4><a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></a></h4>
+                        <h4>₹ <?= $_product->getFinalPrice(); ?></h4>
+
+                        <div class="actions-primary">
+                                                <?php if ($_product->isSaleable()) :?>
+                                                    <?php if (!$_product->getTypeInstance()->isPossibleBuyFromList($_product)) :?>
+                                                        <button class="action tocart primary"
+                                                                data-mage-init='{"redirectUrl":{"url":"<?= $block->escapeUrl($block->getAddToCartUrl($_product)) ?>"}}'
+                                                                type="button"
+                                                                title="<?= $block->escapeHtmlAttr(__('Add to Bag')) ?>">
+                                                            <span><?= $block->escapeHtml(__('Add to Bag')) ?></span>
+                                                        </button>
+                                                    <?php else :?>
+                                                        <?php
+                                                            $postDataHelper = $this->helper(Magento\Framework\Data\Helper\PostHelper::class);
+                                                            $postData = $postDataHelper->getPostData(
+                                                                $block->escapeUrl($block->getAddToCartUrl($_product)),
+                                                                ['product' => (int) $_product->getEntityId()]
+                                                            )
+                                                        ?>
+                                                        <button class="action tocart primary"
+                                                                data-post='<?= /* @noEscape */ $postData ?>'
+                                                                type="button"
+                                                                title="<?= $block->escapeHtmlAttr(__('Add to Bag')) ?>">
+                                                            <span><?= $block->escapeHtml(__('Add to Bag')) ?></span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                <?php else :?>
+                                                    <?php if ($_product->getIsSalable()) :?>
+                                                        <div class="stock available">
+                                                            <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                                                        </div>
+                                                    <?php else :?>
+                                                        <div class="stock unavailable">
+                                                            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="actions-secondary" data-role="add-to-links">
+                                                <?php if ($this->helper(Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) :?>
+                                                    <a href="#"
+                                                       data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_product) ?>'
+                                                       class="action towishlist"
+                                                       data-action="add-to-wishlist"
+                                                       title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>">
+                                                        <span><?= $block->escapeHtml(__('Add to Wish List')) ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($block->getAddToCompareUrl() && $showCompare) :?>
+                                                    <?php $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);?>
+                                                    <a href="#" class="action tocompare"
+                                                       data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_product) ?>'
+                                                       title="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>">
+                                                        <span><?= $block->escapeHtml(__('Add to Compare')) ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <div class="wk-mp-collection-view-btn">
+            <a href="<?= $block->escapeUrl($helper->getRewriteUrl('marketplace/seller/collection/shop/'.$shopUrl));?>" title="<?= $block->escapeHtml(__('View Collection'))?>">
+                <?= $block->escapeHtml(__('View All %1 Products', $sellerProductCount))?>
+            </a>
+        </div>
+    </div>
+<?php } ?>
+<?= $block->getChildHtml()?>
+<script>
+    require(['jquery','owl.carousel/owl.carousel.min'],function($){
+        var element = '#owlslider';
+        $(element).owlCarousel({
+            autoplay:true,
+            autoplayHoverPause:true,
+            loop:true,
+            navRewind:true,
+            margin:0,
+            nav:true,
+            navText:["<em class='porto-icon-left-open-huge'></em>","<em class='porto-icon-right-open-huge'></em>"],
+            dots:false,
+            responsive:{
+                0:{items:1},
+                640:{items:1},
+                768:{items:2},
+                992:{items:3},
+                1200:{items:4}
+            }
+        });
+    });
+</script>
+

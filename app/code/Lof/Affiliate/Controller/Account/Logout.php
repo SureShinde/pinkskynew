@@ -4,7 +4,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Controller\Account;
 
 use Magento\Customer\Model\Session;
@@ -24,8 +23,7 @@ class Logout extends \Magento\Customer\Controller\AbstractAccount
     public function __construct(
         Context $context,
         Session $customerSession
-    )
-    {
+    ) {
         $this->session = $customerSession;
         parent::__construct($context);
     }

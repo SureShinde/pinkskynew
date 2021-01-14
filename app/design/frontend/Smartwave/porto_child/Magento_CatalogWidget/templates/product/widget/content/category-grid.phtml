@@ -1,0 +1,61 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Template for displaying products list widget
+ *
+ * @var $block \Magento\CatalogWidget\Block\Product\ProductsList
+ */
+?>
+
+<?php
+    $type = 'widget-product-grid';
+
+    $mode = 'grid';
+
+// $categoryCollection = $objectManager->get('\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory');
+        $objectManager =  \Magento\Framework\App\ObjectManager::getInstance(); 
+
+$categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category');
+$categories = $categoryHelper->getStoreCategories();
+
+// $categoryHelper = $objectManager->get('\Magento\Catalog\Helper\Category');
+// $categories = $categoryHelper->getCategoryCollection();
+
+    // $categories = $block->getCategoryCollection();
+    // $categoryHelper = $block->getCategoryHelper();
+?>
+    <div class="block widget block-products-list <?php /* @escapeNotVerified */ echo $mode; ?>">
+        
+        <div class="block-title">
+            <strong>All categories</strong>
+        </div>
+        
+        <div class="block-content">
+            <div class="products-grid products-<?php /* @escapeNotVerified */ echo $mode; ?> <?php /* @escapeNotVerified */ echo $mode; ?>">
+                <ol class="product-items <?php /* @escapeNotVerified */ echo $type; ?>">
+                    <?php $iterator = 1; ?>
+                    <?php foreach($categories as $category):
+                        $cat = $this->getCategorymodel($category->getId());
+                        $image = $cat->getImageUrl(); ?>
+                        <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
+                        <div class="product-item-info">
+                            <a class="category_name" href="<?php echo $cat->getUrl(); ?>">
+                               <img src="<?php echo $image; ?>" class="img-responsive category_image" alt="<?php echo $cat->getName(); ?>" width="350" height="350"/>
+                                <h3><span><?php echo $cat->getName(); ?></span></h3>
+                            </a>
+                        </div>
+                        <?php echo($iterator == count($categories)+1) ? '</li>' : '' ?>
+                    <?php endforeach ?>
+                </ol>
+            </div>
+            <?php echo $block->getPagerHtml() ?>
+        </div>
+    </div>

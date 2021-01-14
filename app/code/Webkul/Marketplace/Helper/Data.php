@@ -208,12 +208,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      *
      * @return /Magento/Customer/Model/Customer
      */
-    public function getCustomerData($sellerId='')
+    public function getCustomerData()
     {
         $customerId = $this->getCustomerId();
-        if($sellerId != ''){
-            $customerId = $sellerId;
-        }
         $customerModel = $this->customerModel->create();
         $customerModel->load($customerId);
         return $customerModel;
@@ -629,6 +626,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             $collection->addFieldToFilter('shop_url', $shopUrl);
             $collection->addFieldToFilter('store_id', 0);
         }
+
         return $collection;
     }
 

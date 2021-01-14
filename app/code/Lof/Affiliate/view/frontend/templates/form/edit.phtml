@@ -106,6 +106,12 @@
                     <input type="text" class="input-text" name="paypal_email" id="paypal_email" data-validate="{required:true, 'validate-email':true}" data-validate="{required:true, 'validate-email':true}" autocomplete="off" value="<?php echo $block->getAffiliateInfo()->getPaypalEmail()?>" >
                 </div>
             </div>
+            <!-- <div class="field email required">
+                <label class="label" for="skrill_email"><span><?php /* @escapeNotVerified */ echo __('Skrill Email') ?></span></label>
+                <div class="control">
+                    <input type="text" class="input-text" name="skrill_email" id="Skrill_email" data-validate="{required:true, 'validate-email':true}" autocomplete="off" value="<?php echo $block->getAffiliateInfo()->getPaypalEmail()?>" >
+                </div>
+            </div>   -->         
         </fieldset>
 
         <fieldset class="fieldset affiliate bank-transfer">

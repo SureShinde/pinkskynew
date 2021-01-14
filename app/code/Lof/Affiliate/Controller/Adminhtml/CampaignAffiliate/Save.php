@@ -1,30 +1,30 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Controller\Adminhtml\CampaignAffiliate;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 
 class Save extends \Magento\Backend\App\Action
 {
+    
     /**
      * @var \Magento\Framework\Filesystem
      */
@@ -49,16 +49,15 @@ class Save extends \Magento\Backend\App\Action
      * @var \Magento\Framework\Serialize\SerializerInterface
      */
     private $serializer;
-
+    
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
+        \Magento\Backend\App\Action\Context $context, 
         \Magento\Framework\Filesystem $filesystem,
         \Magento\Backend\Helper\Js $jsHelper,
         \Magento\Framework\Stdlib\DateTime\Timezone $_stdTimezone,
         \Lof\Affiliate\Helper\Data $dataHelper,
         \Magento\Framework\Serialize\SerializerInterface $serializer
-    )
-    {
+        ) {
         $this->_fileSystem = $filesystem;
         $this->jsHelper = $jsHelper;
         $this->_stdTimezone = $_stdTimezone;
@@ -83,7 +82,7 @@ class Save extends \Magento\Backend\App\Action
     public function execute()
     {
 
-        $data = $this->getRequest()->getPostValue();
+        $data = $this->getRequest()->getPostValue(); 
 
         $id = $this->getRequest()->getParam('campaign_id');
 
@@ -94,6 +93,7 @@ class Save extends \Magento\Backend\App\Action
         if ($data) {
             $model = $this->_objectManager->create('Lof\Affiliate\Model\CampaignAffiliate');
 
+            
             if ($id) {
                 $model->load($id);
             } else {
@@ -101,11 +101,11 @@ class Save extends \Magento\Backend\App\Action
             }
 
             $data['commission'] = '';
-            if (isset($data['tier_price'])) {
+            if(isset($data['tier_price'])){
                 $value_arr = [];
                 foreach ($data['tier_price'] as $value) {
                     if ($value['is_deleted'] != 1) {
-                        array_push($value_arr, $value);
+                        array_push($value_arr,$value);
                     }
                 }
                 if (!empty($value_arr)) {
@@ -114,14 +114,16 @@ class Save extends \Magento\Backend\App\Action
                 unset($data['tier_price']);
             }
 
+            if(isset($data['rule'])){
+                $data['conditions'] = $data['rule']['conditions'];
+                $data['conditions'] = $this->serializer->serialize($data['conditions']);
+                unset($data['rule']);
+            }
             /** @var \Magento\Framework\Filesystem\Directory\Read $mediaDirectory */
             $data['create_at'] = $dateTimeNow;
 
-            if (isset($data['rule'])) {
-                $data = $this->prepareData($data);
-                $model->loadPost($data);
-            }
-            try {
+            $model->setData($data);
+            try { 
                 $model->save();
 
                 $this->messageManager->addSuccess(__('You saved this Campaign Affiliate.'));
@@ -142,21 +144,6 @@ class Save extends \Magento\Backend\App\Action
             return $resultRedirect->setPath('*/*/edit', ['campaign_id' => $this->getRequest()->getParam('campaign_id')]);
         }
         return $resultRedirect->setPath('*/*/');
-    }
-
-    /**
-     * Prepares specific data
-     *
-     * @param array $data
-     * @return array
-     */
-    protected function prepareData($data)
-    {
-        if (isset($data['rule']['conditions'])) {
-            $data['conditions'] = $data['rule']['conditions'];
-        }
-        unset($data['rule']);
-        return $data;
     }
 
 }

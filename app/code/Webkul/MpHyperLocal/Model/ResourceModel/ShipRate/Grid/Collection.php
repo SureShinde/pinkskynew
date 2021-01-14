@@ -58,7 +58,7 @@ class Collection extends ShipRateCollection implements SearchResultInterface
         $eventPrefix,
         $eventObject,
         $resourceModel,
-        $model = \Magento\Framework\View\Element\UiComponent\DataProvider\Document::class,
+        $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
         \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
         AbstractDb $resource = null
     ) {

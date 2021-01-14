@@ -184,6 +184,7 @@ class ListLicense extends \Magento\Config\Block\System\Config\Form\Field
                         $_product['purl'] = $xmlData->item_url;
                         $_product['item_title']     = $xmlData->item_title;
                         $_product['version']        = $xmlData->version;
+                        $_product['key']            = ($xmlData->key)?$xmlData->key:'';
                         $extensions[] = $_product;
                         break;
                     }
@@ -214,6 +215,9 @@ class ListLicense extends \Magento\Config\Block\System\Config\Form\Field
                 $value = $this->_helper->getConfig('general/' . str_replace(['-','_',' '], [''], $_extension['sku']),'loflicense',null);
                 if(!$value && isset($_extension['license']) && $_extension['license']){
                     $value = $_extension['license'];
+                }
+                if(!$value && isset($_extension['key']) && $_extension['key']){
+                    $value = $_extension['key'];
                 }
                 $value = trim($value);
                 $baseUrl = $this->_storeManager->getStore()->getBaseUrl(

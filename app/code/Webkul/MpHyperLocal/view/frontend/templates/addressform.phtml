@@ -11,15 +11,17 @@
 $helper = $block->getHelper();
 $address = $helper->getSavedAddress();
 ?>
-<span id="selected-location"><?= $address ? $address['address'] :''; ?></span>
+<li>
+<span id="selected-location"><?php echo $address ? $address['address'] :''; ?></span>
 <i class="material-icons my_location">my_location</i>
-<div class="wk-mp-design" style="display: none;">
+</li>
+<div class="wk-mp-design select-address-popup-parent" style="display: none;">
     <fieldset class="info wk-mp-fieldset fieldset" id="select-address-popup">
         <div class="fieldset form-list" id="cust">
             <div class="field">
-                <label class="label"><?= __('Enter Location')?></label>
+                <label class="label"><?php echo __('Enter Location')?></label>
                 <div class="control">
-                    <input class="input-text" data-lat="<?= $address ? $address['latitude'] :'' ?>" data-lng="<?= $address ? $address['longitude']:''?>" data-city="<?= $address ? $address['city'] :'' ?>" data-state="<?= $address ? $address['state'] :'' ?>" data-country="<?= $address ? $address['country'] :'' ?>" name="address" value="<?= $address ? $address['address'] :''?>" id="autocomplete" type="text" />
+                    <input class="input-text" data-lat="<?php echo $address ? $address['latitude'] :'' ?>" data-lng="<?php echo $address ? $address['longitude']:''?>" data-city="<?php echo $address ? $address['city'] :'' ?>" data-state="<?php echo $address ? $address['state'] :'' ?>" data-country="<?php echo $address ? $address['country'] :'' ?>" name="address" value="<?php echo $address ? $address['address'] :''?>" id="autocomplete" type="text" />
                 </div>
             </div>
         </div>
@@ -29,7 +31,7 @@ $address = $helper->getSavedAddress();
 require.config({
     map: {
         '*': {
-            'googleMapPlaceLibrary': 'https://maps.googleapis.com/maps/api/js?key=<?= $helper->getGoogleApiKey()?>&v=3.exp&libraries=places'
+            'googleMapPlaceLibrary': 'https://maps.googleapis.com/maps/api/js?key=<?php echo $helper->getGoogleApiKey()?>&v=3.exp&libraries=places'
         }
     }
  });
@@ -38,10 +40,9 @@ require.config({
     {
         "*": {
             "addresspopup": {
-                "saveAction": "<?= $block->getSaveAction()?>",
-                "getAction": "<?= $blockObj->getAddressAction()?>",
-                "isAddressSet": "<?= $address ? 1:0 ?>",
-                "popupHeading": "<?= $helper->getPopupMessage()?>"
+                "saveAction": "<?php echo $block->getSaveAction()?>",
+                "isAddressSet": "<?php echo $address ? 1:0 ?>",
+                "popupHeading": "<?php echo $helper->getPopupMessage()?>"
             }
         }
     }

@@ -54,10 +54,7 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
      */
     protected function _construct()
     {
-        $this->_init(
-            \Webkul\MpHyperLocal\Model\ShipRate::class,
-            \Webkul\MpHyperLocal\Model\ResourceModel\ShipRate::class
-        );
+        $this->_init('Webkul\MpHyperLocal\Model\ShipRate', 'Webkul\MpHyperLocal\Model\ResourceModel\ShipRate');
         $this->_map['fields']['entity_id'] = 'main_table.entity_id';
         $this->_map['fields']['created_at'] = 'main_table.created_at';
     }

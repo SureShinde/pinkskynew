@@ -55,6 +55,8 @@ class Index extends Action
      */
     public function execute()
     {
+        echo "hello";
+        exit;
         $productCollection = $this->productModel->create()
         ->getCollection()
         ->addFieldToFilter('admin_pending_notification', ['neq' => 0]);

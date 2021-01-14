@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 //namespace Magento\CatalogRule\Model;
 namespace Lof\Affiliate\Model;
 
@@ -150,7 +149,28 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements \Magento\Framewo
      */
     protected $_ruleProductProcessor;
 
-
+    /**
+     * @param \Magento\Framework\Model\Context $context
+     * @param \Magento\Framework\Registry $registry
+     * @param \Magento\Framework\Data\FormFactory $formFactory
+     * @param \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate
+     * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Magento\CatalogRule\Model\Rule\Condition\CombineFactory $combineFactory
+     * @param \Magento\CatalogRule\Model\Rule\Action\CollectionFactory $actionCollectionFactory
+     * @param \Magento\Catalog\Model\ProductFactory $productFactory
+     * @param \Magento\Framework\Model\ResourceModel\Iterator $resourceIterator
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\CatalogRule\Helper\Data $catalogRuleData
+     * @param \Magento\Framework\App\Cache\TypeListInterface $cacheTypesList
+     * @param \Magento\Framework\Stdlib\DateTime $dateTime
+     * @param \Magento\CatalogRule\Model\Indexer\Rule\RuleProductProcessor $ruleProductProcessor
+     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
+     * @param array $relatedCacheTypes
+     * @param array $data
+     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
@@ -171,8 +191,7 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements \Magento\Framewo
         \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
         array $relatedCacheTypes = [],
         array $data = []
-    )
-    {
+    ) {
         $this->_productCollectionFactory = $productCollectionFactory;
         $this->_storeManager = $storeManager;
         $this->_combineFactory = $combineFactory;
@@ -462,7 +481,7 @@ class Rule extends \Magento\Rule\Model\AbstractModel implements \Magento\Framewo
     /**
      * Filtering products that must be checked for matching with rule
      *
-     * @param int|array $productIds
+     * @param  int|array $productIds
      * @return void
      * @codeCoverageIgnore
      */

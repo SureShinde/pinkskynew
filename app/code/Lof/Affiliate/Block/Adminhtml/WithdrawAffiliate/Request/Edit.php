@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\WithdrawAffiliate\Request;
 
 class Edit extends \Magento\Backend\Block\Widget\Form\Container
@@ -45,8 +44,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
         \Magento\Framework\Registry $registry,
         \Lof\Affiliate\Model\WithdrawAffiliate $withdrawModel,
         array $data = []
-    )
-    {
+    ) {
         $this->_coreRegistry = $registry;
         parent::__construct($context, $data);
         $this->_withdrawModel = $withdrawModel;
@@ -76,7 +74,12 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
      */
     public function getHeaderText()
     {
-        return __("Edit Account '%1'", $this->escapeHtml($this->_coreRegistry->registry('affiliate_account')->getTitle()));
+        // if ($this->_coreRegistry->registry('affiliate_withdraw')->getId()) {
+            return __("Edit Account '%1'", $this->escapeHtml($this->_coreRegistry->registry('affiliate_account')->getTitle()));
+        // } 
+        // else {
+        //     return __('New Payment Affiliate');
+        // }
     }
 
     /**
@@ -98,8 +101,8 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
     protected function _prepareLayout()
     {
         $withdraw_id = $this->_coreRegistry->registry('affiliate_withdraw')->getId();
-        $offlinepayUrl = $this->getUrl('*/*/offlinepay', ["withdraw_id" => $withdraw_id, "type" => 'offlinepay']);
-        $saverequestUrl = $this->getUrl('*/*/offlinepay', ["withdraw_id" => $withdraw_id, "update_request" => 1]);
+        $offlinepayUrl = $this->getUrl('*/*/offlinepay',["withdraw_id" => $withdraw_id,"type" => 'offlinepay']);
+        $saverequestUrl = $this->getUrl('*/*/offlinepay',["withdraw_id" => $withdraw_id,"update_request" => 1]);
         $this->_formScripts[] = "
             function toggleEditor() {
                 if (tinyMCE.getInstanceById('page_content') == null) {
@@ -113,24 +116,24 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
                 'mage/backend/form'
                 ], function(){
                     jQuery('#offline_pay').click(function(){
-                        var actionUrl = '" . $offlinepayUrl . "';
+                        var actionUrl = '".$offlinepayUrl."';
                         jQuery('#edit_form').attr('action', actionUrl);
                         jQuery('#edit_form').submit();
                     });
                     jQuery('#save_request').click(function(){
-                        var actionUrl = '" . $saverequestUrl . "';
+                        var actionUrl = '".$saverequestUrl."';
                         jQuery('#edit_form').attr('action', actionUrl);
                         jQuery('#edit_form').submit();
                     });
             });
         ";
-
+        
         $model = $this->_withdrawModel->load($withdraw_id)->getData();
         $status = $model['status'];
-
+        
         if ($withdraw_id) {
-            if ($model['payment_method'] == "banktransfer") {
-                if ($status == 0) {
+            if($model['payment_method'] == "banktransfer") {
+                if($status == 0){
                     $addButtonProps = [
                         'id' => 'offline_pay',
                         'label' => __('Offline Pay'),
@@ -146,7 +149,7 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
                     'button_class' => ''
                 ];
                 $this->buttonList->add('save_request', $updateButtonProps);
-            } elseif ($status == 0) {
+            } elseif($status == 0) {
                 $addButtonProps = [
                     'id' => 'pay_request',
                     'label' => __('Pay Request'),
@@ -165,15 +168,41 @@ class Edit extends \Magento\Backend\Block\Widget\Form\Container
     protected function _getAddProductButtonOptions()
     {
         $withdraw_id = $this->_coreRegistry->registry('affiliate_withdraw')->getId();
-        $payUrl = $this->getUrl('*/*/payrequest', ["withdraw_id" => $withdraw_id, "type" => 'paypal']);
+        $payUrl = $this->getUrl('*/*/payrequest',["withdraw_id" => $withdraw_id,"type" => 'paypal']);
+        $skrillUrl = $this->getUrl('*/*/payrequest',["withdraw_id" => $withdraw_id,"type" => 'skrill']);
+        $banktransferUrl = $this->getUrl('*/*/payrequest',["withdraw_id" => $withdraw_id,"type" => 'banktransfer']);
+        // $brainTreeUrl = $this->getUrl('*/*/payrequest',["withdraw_id" => $withdraw_id,"type" => 'braintree']);
         $splitButtonOptions = [];
         $splitButtonOptions[0] = [
             'label' => __('Paypal'),
             'onclick' => "setLocation('" . $payUrl . "')",
             'default' => true,
             'id' => 'paypal',
-            'data-fancybox-type' => "iframe",
+            'data-fancybox-type'=> "iframe",
         ];
+
+        // $splitButtonOptions[1] = [
+        //     'label' => __('Bank Transfer'),
+        //     'onclick' => "setLocation('" . $banktransferUrl . "')",
+        //     'id' => 'banktransfer',
+        //     'data-fancybox-type'=> "iframe",
+        // ];
+        // $splitButtonOptions[1] = [
+        //     'label' => __('Skrill'),
+        //     'onclick' => "setLocation('" . $skrillUrl . "')",
+        //     'id' => 'skrill',
+        //     'data-fancybox-type'=> "iframe",
+        // ];
+        /* Disabled Braintree Method
+
+        $splitButtonOptions[2] = [
+            'label' => __('BrainTree'),
+            'onclick' => "setLocation('" . $brainTreeUrl . "')",
+            'id' => 'braintree',
+            'data-fancybox-type'=> "iframe",
+        ];
+        */
+
         return $splitButtonOptions;
     }
 }

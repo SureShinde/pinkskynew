@@ -83,7 +83,10 @@ class Origin extends \Magento\Customer\Controller\AbstractAccount
     public function execute()
     {
         /** @var \Magento\Framework\View\Result\Page $resultPage */
-        $sellerId = $this->_mpHelper->getCustomerId();
+        $sellerId = $this->customerSession->getCustomerId();
+        $sellerData = $this->sellerFactory->create()->getCollection()
+                                            ->addFieldToFilter('seller_id', $sellerId)
+                                            ->setPageSize(1)->getFirstItem();
         if ($this->getRequest()->isPost()) {
             try {
                 if (!$this->formKeyValidator->validate($this->getRequest())) {
@@ -93,16 +96,11 @@ class Origin extends \Magento\Customer\Controller\AbstractAccount
                     );
                 }
                 $data = $this->getRequest()->getParams();
-                $sellerData = $this->sellerFactory->create()->getCollection()
-                ->addFieldToFilter('seller_id', $sellerId);
-                if ($sellerData->getSize()) {
-                    foreach ($sellerData as $seller) {
-                        $seller->setOriginAddress($data['origin_address']);
-                        $seller->setLatitude($data['latitude']);
-                        $seller->setLongitude($data['longitude']);
-                        $seller->setRadius($data['radius']);
-                        $seller->save();
-                    }
+                if ($sellerData->getEntityId()) {
+                    $sellerData->setOriginAddress($data['origin_address']);
+                    $sellerData->setLatitude($data['latitude']);
+                    $sellerData->setLongitude($data['longitude']);
+                    $sellerData->save();
                     $this->messageManager->addSuccess(__('Your shipping origin has been successfully saved.'));
                 } else {
                     $this->messageManager->addError(__('Invalid seller'));
@@ -113,7 +111,7 @@ class Origin extends \Magento\Customer\Controller\AbstractAccount
                 $this->messageManager->addError($e->getMessage());
                 return $this->resultRedirectFactory->create()->setPath('mphyperlocal/account/origin');
             }
-        } elseif ($this->_mpHelper->isSeller()) {
+        } elseif ($sellerData->getIsSeller()) {
             $resultPage = $this->resultPageFactory->create();
             if ($this->_mpHelper->getIsSeparatePanel()) {
                 $resultPage->addHandle('mphyperlocal_layout2_account_origin');

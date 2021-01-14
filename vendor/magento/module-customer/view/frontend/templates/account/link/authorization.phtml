@@ -8,11 +8,94 @@
 
 $dataPostParam = '';
 if ($block->isLoggedIn()) {
-    $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams());
-}
-?>
-<li class="authorization-link" data-label="<?= $block->escapeHtmlAttr(__('or')) ?>">
+    // $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams()); ?>
+   <!--  <li class="authorization-link" data-label="<?= $block->escapeHtmlAttr(__('or')) ?>">
     <a <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?>>
         <?= $block->escapeHtml($block->getLabel()) ?>
     </a>
+</li> -->
+
+<li class="authorization-link" data-label="<?= $block->escapeHtmlAttr(__('or')) ?>">
+  <div class="cust-dropdown">
+    <?php $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams()); ?>
+      <a href="">
+          <?= $block->escapeHtml($block->getLabel()) ?>
+      </a>
+      <div class="dropdown-content">
+      <ul>
+        <li><a href="<?php echo $this->getBaseUrl(); ?>customer/account">My account</a></li>  
+        <li><a href="<?php echo $this->getBaseUrl(); ?>customer/account/edit">Account setting</a></li>  
+        <li><a <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?>>Logout</a></li>  
+    </ul>
+  </div>
 </li>
+
+
+
+<?php } else { ?>
+  <li class="authorization-link" data-label="<?= $block->escapeHtmlAttr(__('or')) ?>">
+  <div class="cust-dropdown">
+     <a href="">
+          <?= $block->escapeHtml($block->getLabel()) ?>
+      </a>
+      <div class="dropdown-content">
+      <ul> 
+        <li><a <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?>>Login</a></li>  
+    </ul>
+  </div>
+</li>
+
+ <?php } ?>
+ <style type="text/css" media="screen">
+.cust-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  right:0;
+}
+.dropdown-content ul li{font-size:16px;    list-style-type: none;}
+.dropdown-content ul li a{display:block;}
+.dropdown-content ul{padding-left:0px;}
+.cust-dropdown:hover .dropdown-content {
+  display: block;
+}
+.cust-dropdown:hover .dropdown-content a:after{display:none;}
+ </style>
+
+
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+ <script type="text/javascript">
+ //TOGGLING NESTED ul
+$(".drop-down .selected a").click(function() {
+    $(".drop-down .options ul").toggle();
+});
+
+//SELECT OPTIONS AND HIDE OPTION AFTER SELECTION
+$(".drop-down .options ul li a").click(function() {
+    var text = $(this).html();
+    $(".drop-down .selected a span").html(text);
+    $(".drop-down .options ul").hide();
+}); 
+
+
+//HIDE OPTIONS IF CLICKED ANYWHERE ELSE ON PAGE
+$(document).bind('click', function(e) {
+    var $clicked = $(e.target);
+    if (! $clicked.parents().hasClass("drop-down"))
+        $(".drop-down .options ul").hide();
+});
+ </script>

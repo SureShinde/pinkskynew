@@ -22,8 +22,12 @@
 
 namespace Lof\Affiliate\Block\Adminhtml\Report;
 
+// use Lof\Affiliate\Model\Config;
+
 class Index extends \Magento\Framework\View\Element\Template
 {
+
+ 
     /**
      * @var \Lof\Affiliate\Model\AccountAffiliate
      */
@@ -31,27 +35,31 @@ class Index extends \Magento\Framework\View\Element\Template
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Lof\Affiliate\Model\AccountAffiliate $account
+     * @param \Lof\Affiliate\Model\AccountAffiliate           $account
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Lof\Affiliate\Model\AccountAffiliate $account
-    )
-    {
+    ) {
         $this->_account = $account;
         parent::__construct($context);
     }
 
-    public function getAllAccount()
-    {
+    public function getAllAccount(){
         $collection = $this->_account->getCollection();
         $account_array = array();
         $option = "<select id='aff_email'>";
+        // $option .= "<option>".__("__Select Account Affiliate__")."</option>";
         foreach ($collection->getData() as $key) {
-            $option .= '<option value=' . $key['email'] . '>' . $key['email'] . '</option>';
+            
+            // array_push($account_array, $key['email']);
+            $option .= '<option value='.$key['email'].'>'.$key['email'].'</option>';
+        //     
         }
         $option .= "</select>";
+        // $data = json_encode($account_array);
         return $option;
+        
     }
 
 }

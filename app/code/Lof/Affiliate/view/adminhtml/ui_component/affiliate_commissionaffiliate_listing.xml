@@ -29,6 +29,10 @@
         <item name="spinner" xsi:type="string">affiliate_transactionaffiliate_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
+                <!-- <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">Add New Commission Affiliate</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/new</item> -->
             </item>
         </item>
     </argument>
@@ -40,7 +44,11 @@
             <argument name="requestFieldName" xsi:type="string">id</argument>
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
                     <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">      
+                        <item name="indexField" xsi:type="string">commission_id</item>  
+                    </item>
                 </item>
             </argument>
         </argument>

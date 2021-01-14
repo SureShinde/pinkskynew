@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Model;
 
 use \Magento\Framework\App\Config\ScopeConfigInterface;
@@ -71,8 +70,7 @@ class Config
         ScopeConfigInterface $scopeConfig,
         \Magento\Directory\Model\ResourceModel\Region\CollectionFactory $region,
         \Magento\Framework\ObjectManagerInterface $objectManager
-    )
-    {
+    ) {
         $this->scopeConfig = $scopeConfig;
         $this->region = $region;
         $this->_objectManager = $objectManager;

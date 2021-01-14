@@ -1,18 +1,18 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
@@ -76,7 +76,7 @@ class InstallSchema implements InstallSchemaInterface
         }
 
 
-        /**
+        /** 
          * table lof_affiliate_commission
          */
         $table = $installer->getConnection()->newTable(
@@ -88,7 +88,7 @@ class InstallSchema implements InstallSchemaInterface
             null,
             ['identity' => true, 'nullable' => false, 'primary' => true],
             'commission_id'
-        )
+        ) 
         ->addColumn(
             'campaign_code',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
@@ -141,7 +141,7 @@ class InstallSchema implements InstallSchemaInterface
         );
         $installer->getConnection()->createTable($table);
 
-        /**
+        /** 
          * table lof_affiliate_campaign
          */
         $table = $installer->getConnection()->newTable(
@@ -312,15 +312,7 @@ class InstallSchema implements InstallSchemaInterface
             null,
             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
             'create_at'
-        )->addIndex(
-                $setup->getIdxName(
-                    $installer->getTable('lof_affiliate_campaign'),
-                    ['name','description','tracking_code'],
-                    AdapterInterface::INDEX_TYPE_FULLTEXT
-                ),
-                ['name','description','tracking_code'],
-                ['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
-            )
+        )
         ->setComment(
             'Campaign - Campaign Table'
         );
@@ -431,14 +423,6 @@ class InstallSchema implements InstallSchemaInterface
             null,
             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
             'create_at'
-        )->addIndex(
-            $setup->getIdxName(
-                $installer->getTable('lof_affiliate_group'),
-                ['name'],
-                AdapterInterface::INDEX_TYPE_FULLTEXT
-            ),
-            ['name'],
-            ['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
         )
         ->setComment(
             'Group - Group Table'
@@ -552,15 +536,7 @@ class InstallSchema implements InstallSchemaInterface
             null,
             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
             'create_at'
-        )->addIndex(
-                $setup->getIdxName(
-                    $installer->getTable('lof_affiliate_banner'),
-                    ['title','link','type','image','rel_nofollow'],
-                    AdapterInterface::INDEX_TYPE_FULLTEXT
-                ),
-                ['title','link','type','image','rel_nofollow'],
-                ['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
-            )
+        )
         ->setComment(
             'Banner - Banner Table'
         );
@@ -664,19 +640,7 @@ class InstallSchema implements InstallSchemaInterface
             null,
             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
             'Create Time'
-        )->addIndex(
-                $setup->getIdxName(
-                    $installer->getTable('lof_affiliate_account'),
-                    [
-                        'firstname','lastname','fullname','email','tracking_code', 'paypal_email', 'skrill_email'
-                    ],
-                    AdapterInterface::INDEX_TYPE_FULLTEXT
-                ),
-                [
-                    'firstname','lastname','fullname','email','tracking_code', 'paypal_email', 'skrill_email'
-                ],
-                ['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
-            )
+        )
         ->setComment(
             'Affiliate - Account Table'
         );
@@ -827,15 +791,7 @@ class InstallSchema implements InstallSchemaInterface
             null,
             ['nullable' => false],
             'Email Affiliate'
-        )->addIndex(
-                $setup->getIdxName(
-                    $installer->getTable('lof_affiliate_transaction'),
-                    ['description','affiliate_code','campaign_code','increment_id','base_currency_code','customer_email','email_aff'],
-                    AdapterInterface::INDEX_TYPE_FULLTEXT
-                ),
-                ['description','affiliate_code','campaign_code','increment_id','base_currency_code','customer_email','email_aff'],
-                ['type' => AdapterInterface::INDEX_TYPE_FULLTEXT]
-            )
+        )
         ->setComment(
             'Affiliate - Transaction Table'
         );

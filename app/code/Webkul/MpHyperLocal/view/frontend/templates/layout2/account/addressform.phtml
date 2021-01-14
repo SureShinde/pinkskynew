@@ -10,12 +10,12 @@
  */
 if ($this->getRequest()->getFullActionName() == 'mphyperlocal_account_origin' || $this->getRequest()->getFullActionName() == 'mphyperlocal_account_addshiparea') {
     $address = $block->getHelper()->getSavedAddress();
-    ?>
+?>
     <script>
     require.config({
         map: {
             '*': {
-                'googleMapPlaceLibrary': 'https://maps.googleapis.com/maps/api/js?key=<?= $block->getHelper()->getGoogleApiKey()?>&v=3.exp&libraries=places'
+                'googleMapPlaceLibrary': 'https://maps.googleapis.com/maps/api/js?key=<?php echo $block->getHelper()->getGoogleApiKey()?>&v=3.exp&libraries=places'
             }
         }
     });
@@ -24,9 +24,9 @@ if ($this->getRequest()->getFullActionName() == 'mphyperlocal_account_origin' ||
     {
         "*": {
             "addresspopup": {
-                "saveAction": "<?= $block->getSaveAction()?>",
-                "isAddressSet": "<?= $address ? 1:0 ?>",
-                "popupHeading": "<?= $block->getLocationPopupWindow()?>"
+                "saveAction": "<?php echo $block->getSaveAction()?>",
+                "isAddressSet": "<?php echo $address ? 1:0 ?>",
+                "popupHeading": "<?php echo $block->getLocationPopupWindow()?>"
             }
         }
     }

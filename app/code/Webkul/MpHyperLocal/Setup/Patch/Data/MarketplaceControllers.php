@@ -46,6 +46,16 @@ class MarketplaceControllers implements DataPatchInterface
         $this->moduleDataSetup->startSetup();
 
         $data = [];
+        
+        if (!($this->controllersRepository->getByPath('mphyperlocal/account/addshiparea')->getSize())) {
+            $data[] = [
+                'module_name' => 'Webkul_MpHyperLocal',
+                'controller_path' => 'mphyperlocal/account/addshiparea',
+                'label' => 'Shipping Areas',
+                'is_child' => '0',
+                'parent_id' => '0',
+            ];
+        }
         if (!($this->controllersRepository->getByPath('mphyperlocal/account/addrate')->getSize())) {
             $data[] = [
                 'module_name' => 'Webkul_MpHyperLocal',

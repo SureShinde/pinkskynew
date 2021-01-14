@@ -13,9 +13,6 @@ namespace Webkul\MpHyperLocal\Plugin\Catalog\Product;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\Controller\ResultFactory;
 use Webkul\MpHyperLocal\Helper\Data;
-use Magento\Framework\UrlFactory;
-use Webkul\Marketplace\Helper\Data as MpHelper;
-use Magento\Framework\HTTP\Header;
 
 class View
 {
@@ -35,42 +32,18 @@ class View
     protected $helper;
 
     /**
-     * @param UrlFactory
-     */
-    protected $urlModel;
-
-    /**
-     * @param MpHelper
-     */
-    protected $mpHelper;
-
-    /**
-     * @var \Magento\Framework\HTTP\Header
-     */
-    protected $httpHeader;
-
-    /**
-     * @param ManagerInterface    $messageManager
-     * @param ResultFactory       $resultFactory
-     * @param Data                $helper
-     * @param UrlFactory          $urlModel
-     * @param MpHelper            $mpHelper
-     * @param Header              $httpHeader
+     * @param ManagerInterface $messageManager
+     * @param ResultFactory $resultFactory
+     * @param Data $helper
      */
     public function __construct(
         ManagerInterface $messageManager,
         ResultFactory $resultFactory,
-        Data $helper,
-        UrlFactory $urlModel,
-        MpHelper $mpHelper,
-        Header $httpHeader
+        Data $helper
     ) {
         $this->messageManager = $messageManager;
         $this->resultFactory = $resultFactory;
         $this->helper = $helper;
-        $this->urlModel = $urlModel;
-        $this->mpHelper = $mpHelper;
-        $this->httpHeader = $httpHeader;
     }
     
     /**
@@ -78,26 +51,17 @@ class View
      */
     public function afterExecute(\Magento\Catalog\Controller\Product\View $subject, $result)
     {
-        $userAgent = $this->httpHeader->getHttpUserAgent();
-        if (strpos($userAgent, 'curl') === false) {
-            $productId = (int) $subject->getRequest()->getParam('id');
-            $url = $this->urlModel->create()->getUrl();
-            $savedAddress = $this->helper->getSavedAddress();
-            if ($savedAddress) {
-                $status = true;
-                $sellerIds = $this->helper->getNearestSellers();
-                $sellerId = $this->mpHelper->getSellerIdByProductId($productId);
-                if (!in_array($sellerId, $sellerIds)) {
-                    if (!$this->helper->getOutletStatus($sellerId)) {
-                        $this->messageManager->addNotice(__("store does not provide service on your location."));
-                        return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath($url);
-                    }
-                }
-            } else {
-                $this->messageManager->addNotice(__('Please select your location!'));
-                return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath($url);
+        $productId = (int) $subject->getRequest()->getParam('id');
+
+        $savedAddress = $this->helper->getSavedAddress();
+        if ($savedAddress) {
+            $sellerIds = $this->helper->getNearestSellers();
+            $allowedProList = $this->helper->getNearestProducts($sellerIds);
+            if (!in_array($productId,$allowedProList)) {
+                $this->messageManager->addNotice(__('You are not authorized to view this product.'));
+                return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath('/');        
             }
-            return $result;
         }
+        return $result;
     }
 }

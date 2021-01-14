@@ -24,7 +24,7 @@ class Advanced
      */
     public function __construct(Data $helper)
     {
-        $this->helper = $data;
+        $this->helper = $helper;
     }
 
     public function afterGetProductCollection(\Magento\CatalogSearch\Model\Advanced $subject, $result)

@@ -111,7 +111,7 @@ class ListProduct extends AbstractProduct implements IdentityInterface
      * @return AbstractCollection
      */
     protected function _getProductCollection()
-    {
+    {        
         if ($this->_productCollection === null) {
             $this->_productCollection = $this->initializeProductCollection();
         }

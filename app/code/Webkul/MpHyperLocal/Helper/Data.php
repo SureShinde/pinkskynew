@@ -19,11 +19,9 @@ use Magento\Catalog\Model\ProductFactory;
 use Webkul\Marketplace\Model\ProductFactory as MpProductFactory;
 use Webkul\MpHyperLocal\Model\ShipAreaFactory;
 use Webkul\Marketplace\Model\SellerFactory;
-use Magento\Framework\HTTP\Client\Curl;
 
 class Data extends AbstractHelper
 {
-    const ALLOW_SINGLE_SELLER = 'mphyperlocal/general_settings/allow_single_seller';
     /**
      * @var \Magento\Framework\Stdlib\CookieManagerInterface
      */
@@ -58,11 +56,6 @@ class Data extends AbstractHelper
      * @var SellerFactory
      */
     protected $sellerFactory;
-
-    /**
-     * @var Curl
-     */
-    protected $curl;
     
     /**
      * @param Context $context
@@ -73,7 +66,6 @@ class Data extends AbstractHelper
      * @param MpProductFactory $mpProductFactory
      * @param ShipAreaFactory $shipAreaFactory
      * @param SellerFactory $sellerFactory
-     * @param Curl $curl
      */
     public function __construct(
         Context $context,
@@ -83,9 +75,7 @@ class Data extends AbstractHelper
         ProductFactory $productFactory,
         MpProductFactory $mpProductFactory,
         ShipAreaFactory $shipAreaFactory,
-        SellerFactory $sellerFactory = null,
-        Curl $curl = null,
-        \Webkul\MpHyperLocal\Model\OutletFactory $outletModel = null
+        SellerFactory $sellerFactory = null
     ) {
         parent::__construct($context);
         $this->cookieManager = $cookieManager;
@@ -96,10 +86,6 @@ class Data extends AbstractHelper
         $this->shipAreaFactory = $shipAreaFactory;
         $this->sellerFactory = $sellerFactory ?: \Magento\Framework\App\ObjectManager::getInstance()
                                                 ->create(SellerFactory::class);
-        $this->curl = $curl ?: \Magento\Framework\App\ObjectManager::getInstance()
-                                                ->create(Curl::class);
-        $this->outletModel = $outletModel ?: \Magento\Framework\App\ObjectManager::getInstance()
-                                                ->create(\Webkul\MpHyperLocal\Model\OutletFactory::class);
     }
 
     /**
@@ -149,7 +135,17 @@ class Data extends AbstractHelper
      */
     public function getFilterCollectionType()
     {
-        return 'radius';
+        return $this->getHyperLocalConfig('show_collection');
+    }
+
+    /**
+     * Get Radius Value from HyperLocal Configuration
+     *
+     * @return int
+     */
+    public function getRadiusValue()
+    {
+        return $this->getHyperLocalConfig('radious');
     }
 
     /**
@@ -330,11 +326,17 @@ class Data extends AbstractHelper
                                             ['neq'=> 'NULL']
                                         ]
                                     );
+            $shipArea = [
+                'latitude' => $this->getAdminLatitude(),
+                'longitude' => $this->getAdminLongitude()
+            ];
+            if($this->isInRadious($shipArea)) {
+                $sellerIds[] = NULL;
+            }
             foreach ($sellerCollection as $sellerData) {
                 $shipArea['latitude'] = $sellerData->getLatitude();
                 $shipArea['longitude'] = $sellerData->getLongitude();
-                $radious = $sellerData->getRadius();
-                if ($this->isInRadious($shipArea, $radious)) {
+                if($this->isInRadious($shipArea)) {
                     $sellerIds[] = $sellerData->getSellerId();
                 }
             }
@@ -348,7 +350,7 @@ class Data extends AbstractHelper
         return [
             'city'    => $address['city'] ?? '',
             'state'   => $address['state'] ?? '',
-            'country' => $address['country'] ?? ''
+            'country' => $address['country'] ?? '' 
         ];
     }
 
@@ -357,10 +359,11 @@ class Data extends AbstractHelper
      * @param \Webkul\MpHyperLocal\Model\ShipArea $shipArea
      * @return bool
      */
-    public function isInRadious($shipArea, $radious = 0)
+    public function isInRadious($shipArea)
     {
         $distance = 0;
-        $radiousUnit = $this->getRadiusUnitValue();
+        $radious = $this->scopeConfig->getValue('mphyperlocal/general_settings/radious');
+        $radiousUnit = $this->scopeConfig->getValue('mphyperlocal/general_settings/radious_unit');
         $to['latitude'] = $shipArea['latitude'];
         $to['longitude'] = $shipArea['longitude'];
         $savedAddress = $this->getSavedAddress();
@@ -379,149 +382,5 @@ class Data extends AbstractHelper
     {
         $sellerlist = $this->getNearestSellers();
         return in_array($sellerId, $sellerlist);
-    }
-    /**
-     * [getAllowSingleSellerSettings
-     * used to get settings saved in admin to allow single seller checkout]
-     * @return bool
-     */
-    public function getAllowSingleSellerSettings()
-    {
-        return $this->scopeConfig->getValue(
-            self::ALLOW_SINGLE_SELLER,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    }
-    /**
-     * [getSellerIdFromMpassign used to get seller id who has assigned the product of other seller]
-     * @param  int $assignId [contains assign id]
-     * @return int [returns seller id]
-     */
-    public function getSellerIdFromMpassign($assignId)
-    {
-        $sellerId=0;
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $model = $objectManager->create(
-            \Webkul\MpAssignProduct\Model\Items::class
-        )->load($assignId);
-        if ($model->getSellerId()) {
-            $sellerId = $model->getSellerId();
-        }
-        return $sellerId;
-    }
-
-    public function getOutletStatus($sellerId = 0, $outlet = '')
-    {
-        $status = false;
-        $outletModel = $this->outletModel->create()
-                         ->getCollection()
-                         ->addFieldToFilter('seller_id', $sellerId)
-                         ->addFieldToFilter('status', 1);
-        if ($outlet) {
-            $outletModel->addFieldToFilter('source_code', $outlet);
-        }
-        if ($outletModel->getSize()) {
-            $radious = $this->sellerFactory->create()
-                                 ->getCollection()
-                                 ->addFieldToFilter('seller_id', $sellerId)
-                                 ->addFieldToFilter(
-                                     ['latitude','longitude'],
-                                     [
-                                         ['neq'=> 'NULL'],
-                                         ['neq'=> 'NULL']
-                                     ]
-                                 )
-                                 ->getFirstItem()
-                                 ->getRadius();
-            foreach ($outletModel as $outlet) {
-                  $shipArea['latitude'] = $outlet->getLatitude();
-                  $shipArea['longitude'] = $outlet->getLongitude();
-                if ($this->isInRadious($shipArea, $radious)) {
-                    $status = true;
-                    break;
-                }
-            }
-        }
-        return $status;
-    }
-
-    public function getNearestOutlets($storeId = 0)
-    {
-        $outletIds = [0];
-        $sellerids = [];
-        $userIds = [0];
-        $marketplaceUserData = $this->outletModel->create()
-                                    ->getCollection()
-                                    ->getTable('marketplace_userdata');
-        $outletModel = $this->outletModel->create()
-                        ->getCollection()
-                        ->addFieldToFilter('status', 1);
-        $outletModel->getSelect()->join(
-            $marketplaceUserData.' as cgf',
-            'main_table.seller_id = cgf.seller_id AND store_id='.$storeId,
-            [
-                'radius' => 'radius',
-                'wk_user_id' => 'entity_id'
-            ]
-        );
-        foreach ($outletModel as $outlet) {
-            $sellerids[] = $outlet->getSellerId();
-            $shipArea['latitude'] = $outlet->getLatitude();
-            $shipArea['longitude'] = $outlet->getLongitude();
-            $radious = $outlet->getRadius();
-            if ($this->isInRadious($shipArea, $radious)) {
-                $userIds[] = $outlet->getWkUserId();
-                $outletIds[] = $outlet->getEntityId();
-            }
-        }
-        $adminStoreModel = $this->outletModel->create()
-                                ->getCollection()
-                                ->addFieldToFilter('status', 1);
-        $adminStoreModel->getSelect()->join(
-            $marketplaceUserData.' as cgf',
-            'main_table.seller_id = cgf.seller_id AND store_id=0',
-            [
-                'radius' => 'radius',
-                'wk_user_id' => 'entity_id'
-            ]
-        );
-        if (!empty($sellerids)) {
-            $sellerIds = implode(",", array_unique($sellerids));
-            $adminStoreModel->getSelect()
-                            ->where('main_table.seller_id NOT IN ('.$sellerIds.')');
-        }
-        foreach ($adminStoreModel as $outlet) {
-            $shipArea['latitude'] = $outlet->getLatitude();
-            $shipArea['longitude'] = $outlet->getLongitude();
-            $radious = $outlet->getRadius();
-            if ($this->isInRadious($shipArea, $radious)) {
-                $userIds[] = $outlet->getWkUserId();
-                $outletIds[] = $outlet->getEntityId();
-            }
-        }
-        $outletIds = array_unique($outletIds);
-        $userIds = array_unique($userIds);
-        return [$outletIds, $userIds];
-    }
-
-    /**
-     * getLocation
-     * @param string $address
-     * @return array
-     */
-    public function getLocation($address)
-    {
-        try {
-            $address = str_replace(' ', '+', $address);
-            $address = str_replace('++', '+', $address);
-            $apiKey = $this->getGoogleApiKey();
-            $url = 'https://maps.googleapis.com/maps/api/geocode/json?address='.$address.'&sensor=false&key='.$apiKey;
-            $this->curl->get($url);
-            $response = $this->jsonHelper->jsonDecode($this->curl->getBody());
-            $location = $response['results'][0]['geometry']['location'];
-            return ['latitude' => $location['lat'], 'longitude' => $location['lng']];
-        } catch (\Exception $e) {
-            return ['latitude' => '', 'longitude' => ''];
-        }
     }
 }

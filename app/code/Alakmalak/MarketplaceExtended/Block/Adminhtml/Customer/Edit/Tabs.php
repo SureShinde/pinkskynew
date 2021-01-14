@@ -40,6 +40,7 @@ class Tabs extends \Webkul\Marketplace\Block\Adminhtml\Customer\Edit\Tabs
         $vimeoActive = '';
         $pinterestActive = '';
         $moleskineActive = '';
+        $whatappActive = '';
 
         if ($partner['tw_active'] == 1) {
             $twAactive = "value='1' checked='checked'";

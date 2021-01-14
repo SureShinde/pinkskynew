@@ -46,8 +46,8 @@
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
                     <item name="update_url" xsi:type="url" path="mui/index/render"/>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="indexField" xsi:type="string">campaign_id</item>
+                    <item name="storageConfig" xsi:type="array">      
+                        <item name="indexField" xsi:type="string">campaign_id</item>  
                     </item>
                 </item>
             </argument>
@@ -124,17 +124,16 @@
                 </item>
             </argument>
 
-            <filterSelect name="store_id">
-                <argument name="optionsProvider" xsi:type="configurableObject">
-                    <argument name="class" xsi:type="string">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</argument>
-                </argument>
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="dataScope" xsi:type="string">store_id</item>
-                        <item name="label" xsi:type="string" translate="true">Store View</item>
-                        <item name="captionValue" xsi:type="string">0</item>
-                    </item>
-                </argument>
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <captionValue>0</captionValue>
+                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                    <imports>
+                        <link name="visible">componentType = column, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
             </filterSelect>
 
         </filters>
@@ -150,7 +149,7 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">delete</item>
                         <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url"  xsi:type="url" path="affiliate/campaignaffiliate/massDelete"/>
+                        <item name="url"  xsi:type="url" path="lofaffiliate/campaignaffiliate/massDelete"/>
                         <item name="confirm" xsi:type="array">
                             <item name="title" xsi:type="string" translate="true">Delete items</item>
                             <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
@@ -163,7 +162,7 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">disable</item>
                         <item name="label" xsi:type="string" translate="true">Disable</item>
-                        <item name="url" xsi:type="url" path="affiliate/campaignaffiliate/massDisable"/>
+                        <item name="url" xsi:type="url" path="lofaffiliate/campaignaffiliate/massDisable"/>
                     </item>
                 </argument>
             </action>
@@ -172,7 +171,7 @@
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">enable</item>
                         <item name="label" xsi:type="string" translate="true">Enable</item>
-                        <item name="url" xsi:type="url" path="affiliate/campaignaffiliate/massEnable"/>
+                        <item name="url" xsi:type="url" path="lofaffiliate/campaignaffiliate/massEnable"/>
                     </item>
                 </argument>
             </action>
@@ -245,7 +244,7 @@
                 </item>
             </argument>
         </column>
-        <column name="to_date" class="Lof\Affiliate\Ui\Component\Listing\Column\Date">
+        <column name="to_date" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -256,7 +255,7 @@
                 </item>
             </argument>
         </column>
-        <column name="from_date" class="Lof\Affiliate\Ui\Component\Listing\Column\Date">
+        <column name="from_date" class="Magento\Ui\Component\Listing\Columns\Date">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="filter" xsi:type="string">dateRange</item>
@@ -266,7 +265,7 @@
                     <item name="sortOrder" xsi:type="number">100</item>
                 </item>
             </argument>
-        </column>
+        </column> 
         <column name="is_active">
             <argument name="data" xsi:type="array">
                 <item name="options" xsi:type="object">Magento\Cms\Model\Page\Source\IsActive</item>
@@ -318,7 +317,7 @@
                 </item>
             </argument>
         </column>
-
+        
         <actionsColumn name="actions" class="Lof\Affiliate\Ui\Component\Listing\Column\CampaignAffiliateActions">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\WithdrawAffiliate\Request\Edit\Tab;
 
 use Magento\Framework\UrlInterface;
@@ -56,8 +55,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
         \Lof\Affiliate\Helper\Data $dataHelper,
         UrlInterface $urlBuilder,
         array $data = []
-    )
-    {
+    ) {
         $this->_systemStore = $systemStore;
         $this->_wysiwygConfig = $wysiwygConfig;
         $this->_withdrawCollection = $withdrawCollection;
@@ -86,9 +84,9 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
             $isElementDisabled = true;
         }
         $payment_method = "";
-        if ($model->getId()) {
+        if($model->getId()){
             $payment_method = $model->getPaymentMethod();
-        } else {
+        }else {
             $model->setData('tracking_code', $tracking_code);
             $model->setData('is_active', $isElementDisabled ? '0' : '1');
         }
@@ -105,7 +103,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
         }
 
         $tracking_code = $this->_dataHelper->getAffiliateTrackingCode();
-
+        
         $fieldset->addField(
             'affiliate_email',
             'label',
@@ -113,11 +111,13 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                 'name' => 'affiliate_email',
                 'label' => __('Email Affiliate'),
                 'title' => __('EMail Affiliate'),
+                // 'href' => $this->getUrl('affiliate/AccountAffiliate/edit', ['id' => $model->getId()]),
+                // 'required' => true,
                 'disabled' => $isElementDisabled
             ]
         );
-
-        if ($payment_method == "paypal") {
+        
+        if($payment_method  == "paypal" ){
             $fieldset->addField(
                 'paypal_email',
                 'label',
@@ -126,6 +126,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                     'label' => __('Paypal Email'),
                     'title' => __('Paypal Email'),
                     'bold' => true,
+                    // 'required' => true,
                     'disabled' => $isElementDisabled
                 ]
             );
@@ -138,6 +139,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                 'label' => __('Withdraw Amount'),
                 'title' => __('Withdraw Amount'),
                 'bold' => true,
+                // 'required' => true,
                 'disabled' => $isElementDisabled
             ]
         );
@@ -148,6 +150,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                 'name' => 'payment_method',
                 'label' => __('Payment Method'),
                 'title' => __('Payment Method'),
+                // 'required' => true,
                 'disabled' => true
             ]
         );
@@ -158,6 +161,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                 'name' => 'date_request',
                 'label' => __('Date Request'),
                 'title' => __('date_request'),
+                // 'required' => true,
                 'disabled' => true
             ]
         );
@@ -175,15 +179,16 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                 'label' => __('Status'),
                 'title' => __('Status'),
                 'text' => __($payment_status),
+                // 'required' => true,
                 'disabled' => true
             ]
         );
 
-        if ($payment_method == "banktransfer") {
+        if($payment_method  == "banktransfer" ){
             $bank_data = $model->getBanktransferData();
             $bank_data_array = unserialize($bank_data);
-            if ($bank_data_array) {
-                foreach ($bank_data_array as $key => $value) {
+            if($bank_data_array){
+                foreach($bank_data_array as $key=>$value) {
                     $model->setData($key, $value);
                 }
                 $fieldset->addField(
@@ -313,15 +318,16 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
                     'attachment',
                     'image',
                     [
-                        'name' => 'attachment',
-                        'label' => __('Attachments'),
-                        'required' => false,
-                        'note' => __("Attach document file. File type: JPG, JPEG, PNG, GIF")
+                    'name'     => 'attachment',
+                    'label'    => __('Attachments'),
+                    'required' => false,
+                    'note' => __("Attach document file. File type: JPG, JPEG, PNG, GIF")
                     ]
                 );
             }
         }
 
+        
 
         $this->_eventManager->dispatch('adminhtml_affiliate_accountaffiliate_edit_tab_detail_prepare_form', ['form' => $form]);
 
@@ -330,9 +336,7 @@ class Detail extends \Magento\Backend\Block\Widget\Form\Generic implements \Mage
 
         return parent::_prepareForm();
     }
-
-    public function getWithdrawCollection()
-    {
+    public function getWithdrawCollection(){
         $model = $this->_coreRegistry->registry('affiliate_withdraw');
         $collection = $this->_accountCollection
             ->addFieldToFilter('accountaffiliate_id', array('neq' => $model->getId()));

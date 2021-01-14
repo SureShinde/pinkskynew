@@ -5,14 +5,14 @@
     </event>
 
     <!-- is called first, as long as the payment can be refunded (i.e. hasn't already been refunded already). It returns with the Payment and Creditmemo objects in the event data. -->
-   <!--  <event name="sales_order_payment_refund">
-        <observer name="lof_affiliate_payment_refund" instance="Lof\Affiliate\Observer\PaymentRefund" />
-    </event> -->
+    <!--  <event name="sales_order_payment_refund">
+         <observer name="lof_affiliate_payment_refund" instance="Lof\Affiliate\Observer\PaymentRefund" />
+     </event> -->
 
     <!-- is called almost immediately after, it only returns the Creditmemo object. (refund related by quanlity products of order)-->
     <event name="sales_order_creditmemo_refund">
         <observer name="lof_affiliate_creditmemo_refund" instance="Lof\Affiliate\Observer\CreditmemoRefund" />
     </event>
-    
+
 
 </config>

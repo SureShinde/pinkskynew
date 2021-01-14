@@ -74,7 +74,7 @@
     </div>
     <?php foreach ($banners as $banner): 
 
-    $image = $_helperImage->resizeImage($banner['image'], $banner['width'], $banner['height']); ?>
+    $image = $_helperImage->resizeImage($banner['image'], ( float )$banner['width'], ( float )$banner['height']); ?> 
     
     <p><strong><?php echo __("Title"); ?>: </strong><?php echo $banner['title']; ?></p>
 

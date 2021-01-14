@@ -1,0 +1,39 @@
+<?php
+// use Webkul\Grid\Block\Edit;
+ $record = $block->getEditRecord();
+ $image = $record['image'];
+ $image_path = $block->getUrl("pub/media/images/");
+ $final_path = $image_path.$image;
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Categories</title>
+</head>
+<body>
+	<form method="post" action="<?php echo $block->getUrl('grid/index/save'); ?>" enctype="multipart/form-data">
+		<input type="hidden" name="editRecordId" value="<?php echo $record['entity_id']; ?>">
+		<label>Title</label>
+		<input type="text" name="title" value="<?php echo $record['title']; ?>">
+		<label>Content</label>
+		<textarea name="content" rows="5"><?php echo $record['content']; ?></textarea>
+		<label>URL</label>
+		<input type="text" name="url" value="<?php echo $record['url']; ?>">
+		<label>Image</label>
+		<input type="file" name="image"><br/>
+		<?php
+		if ($record['image'] != '') { ?>
+			<img src="<?php echo $final_path; ?>" height="50" width="50" Alt="No image" />
+		<?php }
+		?>
+		<br/>
+		<label>Status</label>
+		<select name="is_active">
+			<option value="1" <?php if($record['is_active'] == "1") { echo 'selected'; } ?> >Enabled</option>
+			<option value="0" <?php if($record['is_active'] == "0") { echo 'selected'; } ?> >Disabled</option>
+		</select>
+		<br><br>
+		<input type="submit" name="submit">
+	</form>
+</body>
+</html>

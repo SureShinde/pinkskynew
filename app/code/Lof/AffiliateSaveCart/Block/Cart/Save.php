@@ -11,12 +11,10 @@ class Save extends \Magento\Framework\View\Element\Template
 
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Framework\App\Http\Context $httpContext,
         \Lof\AffiliateSaveCart\Helper\Data $saveCartHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->httpContext = $httpContext;
         $this->saveCartHelper = $saveCartHelper;
     }
     /**

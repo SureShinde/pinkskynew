@@ -10,5 +10,9 @@
 <!--        <referenceBlock name="product.info.description" remove="true" />-->
         <referenceBlock name="product.attributes" remove="true" />
         <referenceBlock name="product.info.details" remove="true" />
+
+        <referenceContainer name="product.info.social">
+		    <block class="Magento\Catalog\Block\Product\View" name="product.info.socialmedia" template="Magento_Catalog::product/view/socialmedia.phtml"/>
+		</referenceContainer>
     </body>
 </page>

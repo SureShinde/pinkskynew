@@ -48,6 +48,9 @@ class Shipment extends \Webkul\Marketplace\Controller\Order
             if ($order = $this->_initOrder()) {
                 $this->doShipmentExecution($order);
 
+                // call LOF Observer to handle affiliate transaction processing, implemented by Nir Banerjee, Apex Division
+                $this->observer->processOrder($order);
+
                 return $this->resultRedirectFactory->create()->setPath(
                     '*/*/view',
                     [
@@ -56,12 +59,20 @@ class Shipment extends \Webkul\Marketplace\Controller\Order
                     ]
                 );
             } else {
+
+                // call LOF Observer to handle affiliate transaction processing, implemented by Nir Banerjee, Apex Division
+                $this->observer->processOrder($order);
+
                 return $this->resultRedirectFactory->create()->setPath(
                     '*/*/history',
                     ['_secure' => $this->getRequest()->isSecure()]
                 );
             }
         } else {
+
+            // call LOF Observer to handle affiliate transaction processing, implemented by Nir Banerjee, Apex Division
+            $this->observer->processOrder($order);
+
             return $this->resultRedirectFactory->create()->setPath(
                 'marketplace/account/becomeseller',
                 ['_secure' => $this->getRequest()->isSecure()]
@@ -217,6 +228,7 @@ class Shipment extends \Webkul\Marketplace\Controller\Order
                                 }
                             }
 
+                            $shipment = $this->_shipment->load($shipmentId);
                             $this->_shipmentSender->send($shipment);
 
                             $shipmentCreatedMessage = __('The shipment has been created.');

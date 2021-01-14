@@ -41,9 +41,7 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 'label' => __('Ship Area Info'),
                 'title' => __('Ship Area Info'),
                 'content' => $this->getLayout()
-                                    ->createBlock(
-                                        \Webkul\MpHyperLocal\Block\Adminhtml\Ship\Area\Edit\Tab\Main::class
-                                    )
+                                    ->createBlock('Webkul\MpHyperLocal\Block\Adminhtml\Ship\Area\Edit\Tab\Main')
                                     ->toHtml(),
                 'active' => true
             ]

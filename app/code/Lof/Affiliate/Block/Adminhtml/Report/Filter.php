@@ -22,8 +22,12 @@
 
 namespace Lof\Affiliate\Block\Adminhtml\Report;
 
+// use Lof\Affiliate\Model\Config;
+
 class Filter extends \Magento\Framework\View\Element\Template
 {
+
+ 
     /**
      * @var \Lof\Affiliate\Model\AccountAffiliate
      */
@@ -31,13 +35,12 @@ class Filter extends \Magento\Framework\View\Element\Template
 
     /**
      * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Lof\Affiliate\Model\AccountAffiliate $account
+     * @param \Lof\Affiliate\Model\AccountAffiliate           $account
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Lof\Affiliate\Model\AccountAffiliate $account
-    )
-    {
+    ) {
         $this->_account = $account;
         parent::__construct($context);
     }

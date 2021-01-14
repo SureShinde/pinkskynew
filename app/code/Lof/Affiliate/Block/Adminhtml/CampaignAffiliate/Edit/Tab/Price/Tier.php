@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\CampaignAffiliate\Edit\Tab\Price;
 
 /**
@@ -48,6 +47,16 @@ class Tier extends Group\AbstractGroup
      */
     protected function _sortTierPrices($a, $b)
     {
+        // if ($a['website_id'] != $b['website_id']) {
+        //     return $a['website_id'] < $b['website_id'] ? -1 : 1;
+        // }
+        // if ($a['cust_group'] != $b['cust_group']) {
+        //     return $this->getCustomerGroups($a['cust_group']) < $this->getCustomerGroups($b['cust_group']) ? -1 : 1;
+        // }
+        // if ($a['price_qty'] != $b['price_qty']) {
+        //     return $a['price_qty'] < $b['price_qty'] ? -1 : 1;
+        // }
+
         return 0;
     }
 
@@ -59,6 +68,7 @@ class Tier extends Group\AbstractGroup
      */
     protected function _prepareLayout()
     {
+
         $button = $this->getLayout()->createBlock(
             'Magento\Backend\Block\Widget\Button'
         )->setData(

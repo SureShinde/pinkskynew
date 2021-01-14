@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Block\Account\Login;
 
 /**
@@ -52,8 +51,7 @@ class Info extends \Magento\Framework\View\Element\Template
         \Magento\Checkout\Helper\Data $checkoutData,
         \Magento\Framework\Url\Helper\Data $coreUrl,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->registration = $registration;
         $this->_affiliateUrl = $affiliateUrl;

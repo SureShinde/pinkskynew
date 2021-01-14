@@ -2,11 +2,10 @@
     "name": "webkul/marketplace-hyperlocal",
     "description": "Webkul Magento2 Marketplace Hyperlocal Module",
     "require": {
-        "webkul/module-marketplace": "3.0.*",
-        "webkul/marketplace-msi": "2.0.x"
+        "webkul/module-marketplace": "3.0.*"
     },
     "type": "magento2-module",
-    "version": "3.0.2",
+    "version": "3.0.0",
     "license": [
         "proprietary"
     ],

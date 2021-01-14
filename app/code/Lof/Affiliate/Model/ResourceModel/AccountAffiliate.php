@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Model\ResourceModel;
 
 class AccountAffiliate extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
@@ -31,8 +30,7 @@ class AccountAffiliate extends \Magento\Framework\Model\ResourceModel\Db\Abstrac
         \Magento\Framework\Model\ResourceModel\Db\Context $context,
         \Lof\Affiliate\Helper\Data $dataHelper,
         $connectionName = null
-    )
-    {
+        ) {
         $this->_dataHelper = $dataHelper;
         parent::__construct($context, $connectionName);
     }
@@ -56,9 +54,9 @@ class AccountAffiliate extends \Magento\Framework\Model\ResourceModel\Db\Abstrac
      */
     protected function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
     {
-        if (!$object->getId()) {
-            for ($i = 1; $i <= 10; $i++) {
-                if ($this->checkTrackingCodeExists($object->getTrackingCode())) {
+        if(!$object->getId()){
+            for($i=1;$i<=10;$i++) {
+                if($this->checkTrackingCodeExists($object->getTrackingCode())){
                     $tracking_code = $this->_dataHelper->getAffiliateTrackingCode();
                     $object->setTrackingCode($tracking_code);
                 } else {
@@ -68,39 +66,38 @@ class AccountAffiliate extends \Magento\Framework\Model\ResourceModel\Db\Abstrac
         }
         return $this;
     }
-
-    public function checkTrackingCodeExists($tracking_code = '')
-    {
-        if ($tracking_code) {
+    
+    public function checkTrackingCodeExists($tracking_code = ''){
+        if($tracking_code) {
             $table_name = $this->getTable('lof_affiliate_account');
             $connection = $this->getConnection();
             $select = $connection->select()->from(
                 $table_name
-            )->where(
+                )->where(
                 'tracking_code = :tracking_code'
-            );
+                );
 
             $binds = [':tracking_code' => $tracking_code];
             $resultData = $connection->fetchRow($select, $binds);
-            if ($resultData) {
+            if($resultData) {
                 return true;
             }
         }
         return false;
     }
 
-    public function checkAccountExist($email)
-    {
+    public function checkAccountExist($email){
         $table_name = $this->getTable('customer_entity');
         $connection = $this->getConnection();
         $select = $connection->select()->from(
             $table_name
-        )->where(
+            )->where(
             'email = :email'
-        );
+            );
 
         $binds = [':email' => $email];
         $collection = $connection->fetchCol($select, $binds);
+        // die()
         return $collection;
     }
-}
+};

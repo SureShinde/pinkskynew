@@ -7,8 +7,39 @@
 // phpcs:disable Magento2.Templates.ThisInTemplate
 
 /** @var \Magento\Sales\Block\Order\History $block */
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+$connection = $resource->getConnection();
+
+//*****************loading Customer session *****************//
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+//******** Checking whether customer is logged in or not ********//
+if ($customerSession->isLoggedIn()) {
+$customer_email = $customerSession->getCustomer()->getEmail();
+
+// ***********Getting order collection using customer email id ***********//
+  $order_collection = $objectManager->create('Magento\Sales\Model\Order')->getCollection()->addAttributeToFilter('customer_email', $customer_email);
+
+// $collection = $this->_orderCollectionFactory->create()->addAttributeToSelect('*')->addFieldToFilter($field, $customerSession->getCustomerId());
+ //echo "<pre>";print_r($order_collection->getData());
+ // echo "<pre>";
+ // foreach ($order_collection as $order){ 
+
+ //    $oid = $order->getEntityId();
+ //    $orders = $objectManager->create('Magento\Sales\Model\Order')->load($oid);
+ //    $items = $order->getAllItems();
+ //    print_r($items);
+ //    $custLastName= $orders->getCustomerLastname();
+ //    print_r($custLastName);
+ //    echo "Order Id: ".$order->getEntityId(); 
+ //    echo "Customer Id: ".$order->getCustomerId(); 
+ //   }
+}
 ?>
-<?php $_orders = $block->getOrders(); ?>
+<?php //$_orders = $block->getOrder(); ?>
+<?php $_orders = $order_collection; ?>
 <?= $block->getChildHtml('info') ?>
 <?php if ($_orders && count($_orders)) : ?>
     <div class="table-wrapper orders-history">

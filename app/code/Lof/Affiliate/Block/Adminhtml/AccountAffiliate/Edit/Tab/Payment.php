@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\AccountAffiliate\Edit\Tab;
 
 class Payment extends \Magento\Backend\Block\Widget\Form\Generic implements \Magento\Backend\Block\Widget\Tab\TabInterface
@@ -59,12 +58,11 @@ class Payment extends \Magento\Backend\Block\Widget\Form\Generic implements \Mag
         \Lof\Affiliate\Model\ResourceModel\AccountAffiliate\Collection $accountCollection,
         \Lof\Affiliate\Helper\Price $price,
         array $data = []
-    )
-    {
+    ) {
         $this->_systemStore = $systemStore;
         $this->_wysiwygConfig = $wysiwygConfig;
         $this->_accountCollection = $accountCollection;
-        $this->_objectManager = $objectManager;
+        $this->_objectManager= $objectManager;
         $this->_priceHelper = $price;
         parent::__construct($context, $registry, $formFactory, $data);
     }
@@ -88,10 +86,6 @@ class Payment extends \Magento\Backend\Block\Widget\Form\Generic implements \Mag
         } else {
             $isElementDisabled = true;
         }
-        $this->_eventManager->dispatch(
-            'lof_check_license',
-            ['obj' => $this,'ex'=>'Lof_Affiliate']
-            );
 
         /** @var \Magento\Framework\Data\Form $form */
         $form = $this->_formFactory->create();
@@ -117,7 +111,7 @@ class Payment extends \Magento\Backend\Block\Widget\Form\Generic implements \Mag
                     'disabled' => true,
                     'text' => $commission
                 ]
-            );
+            );        
         }
 
         $fieldset->addField(
@@ -132,6 +126,17 @@ class Payment extends \Magento\Backend\Block\Widget\Form\Generic implements \Mag
                 'disabled' => $isElementDisabled
             ]
         );
+        // $fieldset->addField(
+        //     'skrill_email',
+        //     'text',
+        //     [
+        //         'name' => 'skrill_email',
+        //         'label' => __('Skrill Email'),
+        //         'title' => __('skrill Email'),
+        //         'class' => 'validate-email',
+        //         'disabled' => $isElementDisabled
+        //     ]
+        // );
         if ($model->getId()) {
             $fieldset->addField(
                 'balance',
@@ -141,7 +146,7 @@ class Payment extends \Magento\Backend\Block\Widget\Form\Generic implements \Mag
                     'label' => __('Balance'),
                     'title' => __('Balance'),
                     'bold' => true,
-                    'text' => $this->_priceHelper->formatPrice($model->getBalance()),
+                    'text' =>  $this->_priceHelper->formatPrice($model->getBalance()),
                     // 'required' => true,
                     'disabled' => $isElementDisabled
                 ]
@@ -168,17 +173,15 @@ class Payment extends \Magento\Backend\Block\Widget\Form\Generic implements \Mag
         return parent::_prepareForm();
     }
 
-    public function getAccountCollection()
-    {
+    public function getAccountCollection(){
         $model = $this->_coreRegistry->registry('affiliate_account');
         $collection = $this->_accountCollection
             ->addFieldToFilter('accountaffiliate_id', array('neq' => $model->getId()));
-        // ->setOrder('cat_position');
+            // ->setOrder('cat_position');
         return $collection;
     }
 
-    public function getAccounts($accounts, $acc = [], $level = 0)
-    {
+    public function getAccounts($accounts, $acc = [], $level = 0){
         foreach ($acc as $k => $v) {
 
         }

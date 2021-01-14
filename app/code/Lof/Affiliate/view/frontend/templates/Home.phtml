@@ -29,29 +29,21 @@
         <table id="list-campaign-table" class="table table-bordered table-hover no-margin">
             <tbody>
                 <?php foreach ($campaigns as $campaign): ?>
-                <?php 
-                $commissionList = $_helper->getComissionByCampaignID($campaign['campaign_id']);
-                $total = count($commissionList);
-                $colspan = 0;
-                if($total == 0){
-                    $colspan = 7;
-                }
-                ?>
                 <tr>
-                    <td <?php echo $colspan?('colspan="'.$colspan.'"'):'';  ?>>
+                    <td>
                         <strong><?php echo $campaign['name']; ?></strong><br>
                         <?php if ($campaign['enable_ppl']) { ?>
                             <strong><?php echo __('Pay Per Lead'); ?></strong><br>
-                            <span><?php echo __('Commission for each new account: ') . $_helper->symbolPrice($campaign['signup_commission']); ?></span><br>
-                            <span><?php echo __('Commission for each new subcribe: ') . $_helper->symbolPrice($campaign['subscribe_commission']); ?></span><br>
-                            <span><?php echo __('Maximum quantity of signup new account for each Affiliater: ') . $campaign['limit_account']; ?></span><br>
-                            <span><?php echo __('Maximum pay per lead balance for each Affiliater: ') . $campaign['limit_balance']; ?></span><br>
-                            <span><?php echo __('Maximum new account created from same IP address: ') . $campaign['limit_account_ip']; ?></span><br>
+                            <span><?php echo __('Commission for each new account: ') . $_helper->symbolPrice($campaign['signup_commission']); ?></span></br>
+                            <span><?php echo __('Commission for each new subcribe: ') . $_helper->symbolPrice($campaign['subscribe_commission']); ?></span></br>
+                            <span><?php echo __('Maximum quantity of signup new account for each Affiliater: ') . $campaign['limit_account']; ?></span></br>
+                            <span><?php echo __('Maximum pay per lead balance for each Affiliater: ') . $campaign['limit_balance']; ?></span></br>
+                            <span><?php echo __('Maximum new account created from same IP address: ') . $campaign['limit_account_ip']; ?></span></br>
                         <?php } ?>
                             <strong><?php echo __('Pay Per Sale'); ?></strong><br>
-                        <span><?php echo __("base commission :");?> <?php echo $campaign['discount_action'] == 'by_percent' ? $campaign['discount_amount'] . '%' : $_helper->symbolPrice($campaign['discount_amount']); ?></span>
+                        <span>base commission : <?php echo $campaign['discount_action'] == 'by_percent' ? $campaign['discount_amount'] . '%' : $_helper->symbolPrice($campaign['discount_amount']); ?></span>
                     </td>
-                    <?php foreach ( $commissionList as $comission): ?>
+                    <?php foreach ($_helper->getComissionByCampaignID($campaign['campaign_id']) as $comission): ?>
                         <td>
                             <strong><?php echo $comission['label']; ?></strong>
                         </td>
@@ -59,15 +51,8 @@
                             <span class="1st-value"><?php echo $comission['typeOrderValue']; ?></span>
                             <span class="next-value"><?php echo $comission['typeOrderValueNext']; ?></span>
                         </td>
+                    </br>
                     <?php endforeach ?>
-                    <?php 
-                    if($total == 2){
-                        echo "<td></td><td></td>";
-                    }
-                    if($total == 1){
-                        echo "<td></td><td></td><td></td><td></td>";
-                    }
-                    ?>
                 </tr>
                 <?php endforeach ?>
                 <?php echo $block->getChildHtml("affiliate.campaign.list"); ?>
@@ -86,7 +71,7 @@
                         <strong><?php echo $group['name']; ?></strong><br>
                         <?php if ($group['is_active']) {
                         $group['commission_action'] == 1 ? $unit = '%' : $unit = ''; ?>
-                            <span><?php echo __('PAY PER SALE - commission : ') . $group['commission'] . $unit; ?></span><br>
+                            <span><?php echo __('PAY PER SALE - commission : ') . $group['commission'] . $unit; ?></span></br>
                             <?php if ($group['enable_ppl']) {
                             $group['commission_ppl_action'] == 1 ? $unit1 = '%' : $unit1 = '';  ?>
                                 <span><?php echo __('PAY PER LEAD - commission for each completed order : ') . $group['commission_ppl'] . $unit1; ?></span>

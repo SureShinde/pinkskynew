@@ -7,7 +7,7 @@
  * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
  * @license   https://store.webkul.com/license.html
  */
- .mp-mphyperlocal{
+.mp-mphyperlocal{
     position: relative;
 }
 .mp-mphyperlocal ul.nav{
@@ -33,7 +33,6 @@
 }
 .material-icons.my_location {
     font-size: 15px;
-    line-height: 1.5;
 }
 
 .modal-footer .loader {
@@ -52,86 +51,6 @@
 }
 .wk-mp-design #shipping-rate #rate-csv-file {
     width: auto;
-}
-.wk-mp-fieldset {
-    margin-top: 15px;
-}
-.mp-row {
-    padding-bottom: 5px;
-}
-.mp-column {
-    width: 24.75%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #eee;
-    padding: 10px;
-    line-height: 1.7;
-    display: inline-block;
-}
-.wk-btn {
-    border-radius: 3px;
-    margin: 5px;
-}
-
-.wk_search {
-    padding: 60px 0;
-    background-color: #fff;
-    color: #fff;
-}
-
-.wk_search h1 {
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-.wk_search_heading {
-    width: 47%;
-    text-align: center;
-    margin: auto;
-    margin-bottom: 40px;
-}
-
-.wk_search_search {
-    width: 65%;
-    text-align: center;
-    margin: auto;
-}
-
-.wk_search_search input[type=text] {
-    width: 50%;
-    margin-right: 2%;
-    border-radius: 3px;
-}
-
-#save-button {
-    margin-top: -6px;
-}
-
-.wk-address {
-    margin-top: 15px;
-}
-
-#wk-address, #wk-address h1 {
-    margin-bottom: 10px;
-}
-
-#iframe {
-    width: 100%;
-    border: none;
-    height: 800px;
-}
-
-.modal-inner-wrap {
-    width: 80% !important;
-}
-
-@media screen and (max-width : 542px) {
-    .wk_search_search input[type=text], #save-button {
-        width: 70%;
-        display: block;
-        margin: auto;
-        margin-bottom: 1%;
-    }
 }
 
 @keyframes spin {

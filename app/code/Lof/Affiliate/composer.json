@@ -1,26 +1,14 @@
 {
     "name": "landofcoder/module-affiliate",
-    "description": "Magento 2 affiliate extension",
+    "description": "N/A",
     "require": {
-        "landofcoder/module-all" : "1.*"
+        "php": "~7.0.0|~7.0.26"
     },
     "type": "magento2-module",
-    "version": "1.0.6",
+    "version": "1.0.0",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
-    ],
-    "keywords": [
-        "landofcoder",
-        "landofcoder affiliate",
-        "magento 2 affiliate extension"
-    ],
-    "authors": [
-        {
-            "name": "Lof",
-            "email": "landofcoder@gmail.com",
-            "role": "Magento 2 Lof Affiliate"
-        }
     ],
     "autoload": {
         "files": [

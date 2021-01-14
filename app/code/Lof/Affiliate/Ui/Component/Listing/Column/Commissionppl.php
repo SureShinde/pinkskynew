@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Ui\Component\Listing\Column;
 
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -36,8 +35,7 @@ class Commissionppl extends Column
         PriceCurrencyInterface $priceFormatter,
         array $components = [],
         array $data = []
-    )
-    {
+    ) {
         $this->priceFormatter = $priceFormatter;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
@@ -52,12 +50,12 @@ class Commissionppl extends Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                if (isset($item[$this->getData('name')])) {
+                if(isset($item[$this->getData('name')])) {
                     $commission = $item[$this->getData('name')];
-                    if (isset($item['commission_ppl_action']) && $item['commission_ppl_action'] == 1) {
-                        $item[$this->getData('name')] = $commission . '%';
+                    if(isset($item['commission_ppl_action']) && $item['commission_ppl_action'] == 1){
+                        $item[$this->getData('name')] = $commission.'%';
                     } else {
-                        $item[$this->getData('name')] = $this->priceFormatter->getCurrencySymbol() . $commission;
+                        $item[$this->getData('name')] = $this->priceFormatter->getCurrencySymbol().$commission;
                     }
                 }
             }

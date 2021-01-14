@@ -4,7 +4,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Controller\Account;
 
 use Magento\Framework\App\Action\Context;
@@ -24,8 +23,7 @@ class LogoutSuccess extends \Magento\Customer\Controller\AbstractAccount
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory
-    )
-    {
+    ) {
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context);
     }

@@ -41,9 +41,7 @@ class Tabs extends \Magento\Backend\Block\Widget\Tabs
                 'label' => __('Ship Rate Info'),
                 'title' => __('Ship Rate Info'),
                 'content' => $this->getLayout()
-                                    ->createBlock(
-                                        \Webkul\MpHyperLocal\Block\Adminhtml\Ship\Rate\Edit\Tab\Main::class
-                                    )
+                                    ->createBlock('Webkul\MpHyperLocal\Block\Adminhtml\Ship\Rate\Edit\Tab\Main')
                                     ->toHtml(),
                 'active' => true
             ]

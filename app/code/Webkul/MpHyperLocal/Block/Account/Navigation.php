@@ -52,4 +52,12 @@ class Navigation extends \Magento\Framework\View\Element\Html\Link
     {
         return $this->_scopeConfig->getValue('mphyperlocal/general_settings/enable');
     }
+
+    /**
+     * @return string [type of area based on product will show on category page]
+     */
+    public function shipAreaType()
+    {
+        return $this->_scopeConfig->getValue('mphyperlocal/general_settings/show_collection');
+    }
 }

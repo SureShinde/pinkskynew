@@ -1,5 +1,4 @@
 <?php
-
 namespace Lof\Affiliate\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
@@ -7,7 +6,7 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Stdlib\DateTime\Timezone;
 
 class PaymentRefund implements ObserverInterface
-{
+{      
 
     CONST EMAIL_IDENTIFIER_CANCEL = 'sent_mail_after_order_cancel';
 
@@ -27,16 +26,15 @@ class PaymentRefund implements ObserverInterface
         \Psr\Log\LoggerInterface $logger,
         \Lof\Affiliate\Helper\Data $helper,
         Timezone $stdTimezone
-    )
-    {
+    ){
         $this->_request = $context->getRequest();
         $this->logger = $logger;
         $this->_resource = $resource;
-        $this->_objectManager = $context->getObjectManager();
+        $this->_objectManager= $context->getObjectManager();
         $this->_helper = $helper;
         $this->_stdTimezone = $stdTimezone;
     }
-
+    
     /**
      * Add New Layout handle
      *
@@ -45,7 +43,7 @@ class PaymentRefund implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        if (!$this->_helper->getConfig('general_settings/enable'))
+        if(!$this->_helper->getConfig('general_settings/enable'))
             return;
         $order = $observer->getEvent()->getOrder();
         $orderStt = $order->getStatus();
@@ -53,7 +51,7 @@ class PaymentRefund implements ObserverInterface
 
         $closed_order_status = 'closed';
 
-        if ($orderStt == 'closed') {
+        if($orderStt == 'closed'){
             # get orderData in transaction table
             $orderData = $this->_helper->getDataOrderAffiliate($orderId);
             if (!empty($orderData)) {
@@ -89,7 +87,7 @@ class PaymentRefund implements ObserverInterface
                         'name' => $orderData['customer_email']
                     );
                     $emailidentifier = self::EMAIL_IDENTIFIER_CANCEL;
-                    $this->_helper->sendMail($emailFrom, $emailTo, $emailidentifier, $templateVar);
+                    $this->_helper->sendMail($emailFrom,$emailTo,$emailidentifier,$templateVar);  
                 } catch (Exception $e) {
                     $this->messageManager->addException($e, __('You can\'t send a request.'));
                 }

@@ -15,7 +15,6 @@
         <mphyperlocal>
             <general_settings>
                 <enable>1</enable>
-                <allow_single_seller>1</allow_single_seller>
                 <location_popup_window>Enter your location</location_popup_window>
                 <radious_unit>km</radious_unit>
                 <radious>100</radious>

@@ -1,25 +1,26 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Block\Account;
+
+use Magento\Framework\UrlInterface;
 
 class Login extends \Magento\Framework\View\Element\Template
 {
@@ -32,19 +33,19 @@ class Login extends \Magento\Framework\View\Element\Template
      * @var \Magento\Customer\Model\Session
      */
     protected $_customerSession;
+    
 
     /**
      * @var \Magento\Customer\Model\Url
      */
-    protected $_affiliateUrl;
-
+    protected $_affiliateUrl;   
+    
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Customer\Model\Session $customerSession,
         \Lof\Affiliate\Model\Url $affiliateUrl,
         array $data = []
-    )
-    {
+        ) {
         parent::__construct($context, $data);
         $this->_isScopePrivate = false;
         $this->_affiliateUrl = $affiliateUrl;
@@ -54,21 +55,23 @@ class Login extends \Magento\Framework\View\Element\Template
 
     public function _prepareLayout()
     {
+
         $this->pageConfig->getTitle()->set(__('Affiliate Login'));
 
         $this->_addBreadcrumbs();
-
+        
         return parent::_prepareLayout();
     }
 
     protected function _addBreadcrumbs()
     {
+
         $breadcrumbsBlock = $this->getLayout()->getBlock('breadcrumbs');
         $baseUrl = $this->_storeManager->getStore()->getBaseUrl();
         $page_title = 'Login';
         $show_breadcrumbs = true;
 
-        if ($show_breadcrumbs && $breadcrumbsBlock) {
+        if($show_breadcrumbs && $breadcrumbsBlock){
             $breadcrumbsBlock->addCrumb(
                 'home',
                 [
@@ -76,13 +79,13 @@ class Login extends \Magento\Framework\View\Element\Template
                     'title' => __('Go to Home Page'),
                     'link' => $baseUrl
                 ]
-            );
+             );
             $breadcrumbsBlock->addCrumb(
                 'list',
                 [
                     'label' => __('Affiliate'),
                     'title' => __('Return to Affiliate'),
-                    'link' => $baseUrl . 'affiliate'
+                    'link' => $baseUrl.'affiliate'
                 ]
             );
 
@@ -93,7 +96,7 @@ class Login extends \Magento\Framework\View\Element\Template
                     'title' => $page_title,
                     'link' => ''
                 ]
-            );
+             );
         }
     }
 
@@ -129,7 +132,6 @@ class Login extends \Magento\Framework\View\Element\Template
         }
         return $this->_username;
     }
-
     /**
      * Check if autocomplete is disabled on storefront
      *

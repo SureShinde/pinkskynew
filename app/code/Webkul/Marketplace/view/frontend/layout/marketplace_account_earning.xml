@@ -21,7 +21,9 @@
         </referenceBlock>
         <referenceContainer name="content">
             <block class="Webkul\Marketplace\Block\Account\Earnings" name="marketplace_seller_earnings" template="Webkul_Marketplace::account/earnings.phtml" cacheable="false"/>
-            <uiComponent name="marketplace_earning_listing"/>
+        </referenceContainer>
+        <referenceContainer name="marketplace_product_related_product">
+            <uiComponent name="marketplace_related_product_listing"/>
         </referenceContainer>
     </body>
 </page>

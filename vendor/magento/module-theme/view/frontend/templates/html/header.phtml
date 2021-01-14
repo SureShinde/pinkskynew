@@ -22,6 +22,8 @@ $welcomeMessage = $block->getWelcome();
         <?= $block->getBlockHtml('header.additional') ?>
         <!-- /ko -->
     </li>
+    <li><a href="<?php echo $block->getCurrentUrl(); ?>/grid/index/index">Categories</a></li>
+    
     <script type="text/x-magento-init">
     {
         "*": {
@@ -37,4 +39,5 @@ $welcomeMessage = $block->getWelcome();
     </script>
 <?php elseif ($block->getShowPart() == 'other') :?>
     <?= $block->getChildHtml() ?>
+
 <?php endif ?>

@@ -332,7 +332,7 @@ class HyperLocal extends AbstractCarrier implements \Magento\Shipping\Model\Carr
             }
         }
         if ($mpAssignProId) {
-            $mpassignModel = $this->objectManager->create(\Webkul\MpAssignProduct\Model\Items::class)
+            $mpassignModel = $this->objectManager->create('Webkul\MpAssignProduct\Model\Items')
                                                     ->load($mpAssignProId);
             $sellerId = $mpassignModel->getSellerId();
         } else {
@@ -450,13 +450,15 @@ class HyperLocal extends AbstractCarrier implements \Magento\Shipping\Model\Carr
                     $longitude = $this->_scopeConfig->getValue('mphyperlocal/general_settings/longitude');
                     $from = ['latitude' => $latitude, 'longitude' => $longitude];
                 }
-                $to = isset($shippingAddress['latitude']) ? $shippingAddress : $this->getLocation($shippingAddress);
-                $radiousUnit = $this->_scopeConfig->getValue('mphyperlocal/general_settings/radious_unit');
-                return $this->helperData->getDistanceFromTwoPoints($from, $to, $radiousUnit);
             } else {
                 //If seller not set address then hyper local origin address will use as pickup address
-                return 0;
+                $latitude = $this->_scopeConfig->getValue('mphyperlocal/general_settings/latitude');
+                $longitude = $this->_scopeConfig->getValue('mphyperlocal/general_settings/longitude');
+                $from = ['latitude' => $latitude, 'longitude' => $longitude];
             }
+            $to = isset($shippingAddress['latitude']) ? $shippingAddress : $this->getLocation($shippingAddress);
+            $radiousUnit = $this->_scopeConfig->getValue('mphyperlocal/general_settings/radious_unit');
+            return $this->helperData->getDistanceFromTwoPoints($from, $to, $radiousUnit);
         } catch (\Exception $e) {
             $this->logger->info('getDistanceFromBuyer :'.$e->getMessage());
             throw new StateException(__($e->getMessage()));
@@ -481,10 +483,11 @@ class HyperLocal extends AbstractCarrier implements \Magento\Shipping\Model\Carr
             $location = $response['results'][0]['geometry']['location'];
             return [ 'latitude' => $location['lat'], 'longitude' => $location['lng']];
         } catch (\Exception $e) {
-            $this->logger->info('getLocation :'.json_encode($address).' is invalid'.$e->getMessage());
+            $destAddress = is_array($address) ? json_encode($address) : $address;
+            $this->logger->info('getLocation :'.$destAddress.' is invalid'.$e->getMessage());
             $msg = __('Please set your location.');
             if ($address) {
-                $msg = __($address.' is invalid');
+                $msg = __($destAddress.' is invalid');
             }
             throw new StateException($msg);
         }

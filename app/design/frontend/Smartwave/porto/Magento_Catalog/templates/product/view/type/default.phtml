@@ -8,15 +8,31 @@
 
 ?>
 <?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
-<?php $_product = $block->getProduct() ?>
+<?php $_product = $block->getProduct();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$StockState = $objectManager->get('\Magento\CatalogInventory\Api\StockStateInterface');
+$stock = $StockState->getStockQty($_product->getId(), $_product->getStore()->getWebsiteId());
+
+ ?>
+
 
 <?php if ($block->displayProductStockStatus()): ?>
-    <?php if ($_product->isAvailable()): ?>
+    <?php if ($_product->isAvailable()): 
+
+          if ($stock > 0 && $stock < 10):                   ?>
+
         <div class="stock available" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
             <span class="label"><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
-            <span><?php /* @escapeNotVerified */ echo __('In stock') ?></span>
+            <span><?php /* @escapeNotVerified */ echo __('In stock '); ?></span>
+            <span><?php /* @escapeNotVerified */ echo $stock.__(' Products'); ?></span>
         </div>
-    <?php else: ?>
+        <?php else : ?>
+            <div>
+        </div>
+
+    <?php endif;
+            else: ?>
         <div class="stock unavailable" title="<?php /* @escapeNotVerified */ echo __('Availability') ?>">
         	<span class="label"><?php /* @escapeNotVerified */ echo __('Availability:') ?></span>
             <span><?php /* @escapeNotVerified */ echo __('Out of stock') ?></span>

@@ -23,7 +23,7 @@ class SetDefaultAddress extends Field
     const BUTTON_TEMPLATE = 'system/config/button/default-address.phtml';
 
     public function __construct(
-        Context $context,
+        Context $context, 
         Data $helper,
         array $data = []
     ) {

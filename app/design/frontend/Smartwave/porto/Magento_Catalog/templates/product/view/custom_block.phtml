@@ -1,10 +1,67 @@
 <?php
-    $product_view = $this->getConfig('porto_settings/product');
-    $block = $this->getLayout()->createBlock('Magento\Cms\Block\Block');
-    if($block) {
-        $block->setBlockId($product_view['side_custom_block']);
-    }
-    if($block){
-        echo $block->toHtml();
-    }
+    // $product_view = $this->getConfig('porto_settings/product');
+    // $block = $this->getLayout()->createBlock('Magento\Cms\Block\Block');
+    // if($block) {
+    //     $block->setBlockId($product_view['side_custom_block']);
+    // }
+    // if($block){
+    //     echo $block->toHtml();
+    // }
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+if ($customerSession->isLoggedIn()) {
+    $customerSession->getCustomerId();  // get Customer Id
+    $customerSession->getCustomerGroupId();
+    $customerSession->getCustomer();
+    $customerSession->getCustomerData();
+
+    $customerSession->getCustomer()->getName();  // get  Full Name
+   $customerSession->getCustomer()->getEmail(); // get Email
+}
+
+$helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
+$partner=$this->getProfileDetail();
+
+
+
 ?>
+
+<div class="social-media-icons">
+    <span style="font-size: 20px;">Share : 
+    <!-- WhatsApp -->
+    <a target="_blank" href="https://api.whatsapp.com/send?text=<?php echo $block->getRequest()->getUriString();?>">
+            <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/whatsapp.png'; ?>" alt="Whatsapp" width="14%"></a>&nbsp;
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $block->getRequest()->getUriString();?>&t=<?php echo $customerSession->getCustomer()->getName(); ?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on facebook">
+        <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/facebook-share.png'; ?>" alt="Facebook" width="13%">
+    </a>
+
+    <a href="https://www.instagram.com?u=<?php echo $block->getRequest()->getUriString();?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on Instagram">
+        <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/instagram.png'; ?>" alt="Instagram" width="16%">
+    </a>
+    </span>
+
+    <!-- TWITTER -->
+    <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $block->getRequest()->getUriString();?>&t=<?php echo $customerSession->getCustomer()->getName(); ?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on Twitter">
+        <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/tw.png'; ?>" alt="Twitter" width="8%">
+    </a> -->
+
+    <!-- Pinterest -->
+</div>
+<br/><br/>
+
+<div>
+	<span style="font-size: 20px;">Like Product :
+	<a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $block->getRequest()->getUriString();?>&t=<?php echo $customerSession->getCustomer()->getName(); ?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Like product">
+        <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/facebook-like.png'; ?>" alt="Facebook" width="13%">
+    </a>
+    </span>    
+</div>
+
+<!-- <div>
+	<h3>Chat with vendor :</h3>
+	<a target="_blank" href="https://api.whatsapp.com/send?phone=">
+            <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/whatsapp.png'; ?>" alt="Whatsapp" width="14%"></a>
+</div> -->

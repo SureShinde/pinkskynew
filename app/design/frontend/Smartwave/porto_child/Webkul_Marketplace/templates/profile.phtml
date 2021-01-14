@@ -1,0 +1,256 @@
+<?php
+/**
+ * Webkul Software.
+ *
+ * @category  Webkul
+ * @package   Webkul_Marketplace
+ * @author    Webkul
+ * @copyright Copyright (c) Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+$helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
+$partner=$block->getProfileDetail();
+$shopUrl = $block->escapeHtml($partner['shop_url']);
+
+$sellerId = $partner->getSellerId();
+$sellerProductCount = $helper->getSellerProCount($sellerId);
+$_imageHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+
+
+if ($partner['shop_url']) {
+    if ($helper->getActiveColorPicker()) { ?>
+        <style>
+            .page-main{
+                background-image:none;
+                background-color:<?= $block->escapeHtml($partner['background_width']);?>;
+            } 
+        </style>
+    <?php } ?>
+    <?php 
+        $vendorID = $partner->getSellerId();
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+        
+        /* Get store manager */ 
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface'); 
+        $mediaUrl =$storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+        $connection = $resource->getConnection();
+        $tableName = $resource->getTableName('webkul_addproductlogo_post'); //gives table name with prefix
+
+        //Select Data from table
+        $sql = "Select * FROM " . $tableName." WHERE `user_id` = ".$vendorID;
+        $result = $connection->fetchAll($sql);
+    ?>
+    <div>
+        <span style="font-size: 20px;">Contact vendor :</span>
+<a target="_blank" href="https://api.whatsapp.com/send?phone=<?php echo urlencode($partner->getWhatsappId());?>&text=<?php echo urlencode($partner->getWhatsappMessage());?>">
+            <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/whatsapp.png'; ?>" alt="Whatsapp" width="4%"></a>
+
+        <span style="font-size: 20px; margin-left: 10%;">Share profile on :</span>
+<a target="_blank" href="https://api.whatsapp.com/send?text=<?php echo $block->getRequest()->getUriString();?>">
+            <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/whatsapp.png'; ?>" alt="Whatsapp" width="4%"></a>
+
+            <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $block->getRequest()->getUriString();?>" onclick='javascript:window.open(this.href,"","width=640,height=480,left=0,top=0,location=no,status=yes,scrollbars=yes,resizable=yes");return false' title="Share on facebook">
+        <img src="<?php echo $this->getBaseUrl().'pub/media/logo/stores/1/facebook-share.png'; ?>" alt="Facebook" width="4%">
+    </a>
+            <div class="col-md-4 logo-container">
+                            <div class="row">
+                                <?php foreach($result as $logo) { ?>
+                                <div class="logo-list col-md-6">
+                                    <div class="logo-img">
+                                        <a href="<?php echo $mediaUrl."productlogo/".$logo['featured_image']; ?>" target="_blank">
+                                            <img src="<?php echo $mediaUrl."productlogo/".$logo['featured_image']; ?>">
+                                        </a>
+                                    </div>
+                                </div>
+                                <?php } ?>
+
+                            </div>
+                        </div>
+                    </div>
+    </div>
+    <br/><br/>
+    <div class="seller-profile inner">
+        <h3 class="h3"><?= $block->escapeHtml(__("About Me"))?></h3>
+        <p><?= /* @noEscape */ $partner['company_description'];?></p>
+        <p><?= $block->getChildHtml("marketplace_seller_description")?></p>
+
+        <div class="row-am category">
+            <?= $block->getChildHtml("marketplace_seller_top_block")?>
+            <div class="wk-mp-collection-container">
+                <?= $this->getChildHtml('marketplace_sellerprofile_recently_added_products')?>
+            </div>
+        </div>
+        <br/><br/>
+
+
+
+
+
+        <?php 
+        // $attributeCode = 'sellerid';
+        // $product_list = Mage::getModel('catalog/product')
+        //     ->getCollection()
+        //     ->addAttributeToSelect('*')
+            // ->addFieldToFilter('parent_id', array('eq'=>$seller_id));
+        //     ->addAttributeToFilter($attributeCode, $seller_id);
+
+        // $products =  $product_list->getItems();
+            // $products = $block->getAllProducts();
+            $products = $block->getBestsellProducts();
+
+            $showWishlist = true;
+            $showCompare = true;
+            $showCart = true;
+
+           foreach ($products as $product) {
+                $categoryIds = $product->getCategoryIds();
+
+            }
+
+    foreach ($categoryIds as $category) {
+                     
+            $objectManager =  \Magento\Framework\App\ObjectManager::getInstance();
+            $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+
+            $categoryId = $category; // YOUR CATEGORY ID
+            $category = $categoryFactory->create()->load($categoryId);
+
+            $categoryProducts = $category->getProductCollection()
+                ->addAttributeToSelect('*');
+
+                $_imageHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+                $helper = $this->helper(\Webkul\Marketplace\Helper\Data::class);
+                $_helper = $this->helper(\Magento\Catalog\Helper\Output::class);
+                ?>
+                
+
+    <div class="widget block block-static-block cwiw" id="catewithimg">
+    <div class="block-content">
+        <div class="content-heading">
+            <h2 class="title"><?php echo $category->getName(); ?></h2>
+        </div>
+        <div class="row owl-carousel">
+        <?php
+        foreach($categoryProducts as $_product):
+            $resizedImageUrl = $_imageHelper->init($_product, 'product_base_image')->resize(300, 300)->getUrl();
+        ?>
+                <div class="category-item">
+                    <a class="category_name" href="<?= $_product->getProductUrl(); ?>" class="product photo product-item-photo" tabindex="-1">
+                       <img src="<?php echo $resizedImageUrl; ?>" class="img-responsive category_image" alt="<?php echo $_product->getName(); ?>" width="350" height="350"/>
+                        <h3><span><?php echo $_product->getName(); ?></span></h3>
+                    </a>
+
+                    <h4>₹ <?= $_product->getFinalPrice(); ?></h4>
+
+                                            <div class="actions-primary">
+                                                <?php if ($_product->isSaleable()) :?>
+                                                    <?php if (!$_product->getTypeInstance()->isPossibleBuyFromList($_product)) :?>
+                                                        <button class="action tocart primary"
+                                                                data-mage-init='{"redirectUrl":{"url":"<?= $block->escapeUrl($block->getAddToCartUrl($_product)) ?>"}}'
+                                                                type="button"
+                                                                title="<?= $block->escapeHtmlAttr(__('Add to Bag')) ?>">
+                                                            <span><?= $block->escapeHtml(__('Add to Bag')) ?></span>
+                                                        </button>
+                                                    <?php else :?>
+                                                        <?php
+                                                            $postDataHelper = $this->helper(Magento\Framework\Data\Helper\PostHelper::class);
+                                                            $postData = $postDataHelper->getPostData(
+                                                                $block->escapeUrl($block->getAddToCartUrl($_product)),
+                                                                ['product' => (int) $_product->getEntityId()]
+                                                            )
+                                                        ?>
+                                                        <button class="action tocart primary"
+                                                                data-post='<?= /* @noEscape */ $postData ?>'
+                                                                type="button"
+                                                                title="<?= $block->escapeHtmlAttr(__('Add to Bag')) ?>">
+                                                            <span><?= $block->escapeHtml(__('Add to Bag')) ?></span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                <?php else :?>
+                                                    <?php if ($_product->getIsSalable()) :?>
+                                                        <div class="stock available">
+                                                            <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                                                        </div>
+                                                    <?php else :?>
+                                                        <div class="stock unavailable">
+                                                            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="actions-secondary" data-role="add-to-links">
+                                                <?php if ($this->helper(Magento\Wishlist\Helper\Data::class)->isAllow() && $showWishlist) :?>
+                                                    <a href="#"
+                                                       data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($_product) ?>'
+                                                       class="action towishlist"
+                                                       data-action="add-to-wishlist"
+                                                       title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>">
+                                                        <span><i class="fa fa-heart" aria-hidden="true"></i></span>
+                                                    </a>&nbsp;
+                                                <?php endif; ?>
+                                                <?php if ($block->getAddToCompareUrl() && $showCompare) :?>
+                                                    <?php $compareHelper = $this->helper(Magento\Catalog\Helper\Product\Compare::class);?>
+                                                    <a href="#" class="action tocompare"
+                                                       data-post='<?= /* @noEscape */ $compareHelper->getPostDataParams($_product) ?>'
+                                                       title="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>">
+                                                        <!-- <span><?= $block->escapeHtml(__('Add to Compare')) ?></span> -->
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+
+                                            
+                                            
+                </div>
+        <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="wk-mp-collection-view-btn">
+            <a href="<?= $block->escapeUrl($helper->getRewriteUrl('marketplace/seller/collection/shop/'.$shopUrl));?>" title="<?= $block->escapeHtml(__('View Collection'))?>">
+                <?= $block->escapeHtml(__('View All %1 Products', $sellerProductCount))?>
+            </a>
+        </div>
+</div>
+
+<?php } ?>
+
+
+        <?php if ($helper->getSellerPolicyApproval()) { ?>
+                <br><br>
+            <h3 class="h3"><?= $block->escapeHtml(__("Shipping Policy"))?></h3>
+            <p><?= /* @noEscape */ $partner['shipping_policy'];?></p>
+            <br><br>
+            <h3 class="h3"><?= /* @noEscape */ __("Return Policy")?></h3>
+            <p><?= /* @noEscape */ $partner['return_policy'];?></p>
+        <?php } ?>
+    </div>
+    
+<?php }  ?>
+
+
+
+<script type="text/javascript">
+require(['jquery','owl.carousel/owl.carousel.min'],function($){
+    var element = '#catewithimg .owl-carousel';
+    $(element).owlCarousel({
+        autoplay:true,
+        autoplayTimeout:5000,
+        autoplayHoverPause:true,
+        loop:true,
+        navRewind:true,
+        margin:10,
+        nav:true,
+        navText:["<em class='porto-icon-left-open-huge'></em>","<em class='porto-icon-right-open-huge'></em>"],
+        dots:false,
+        responsive:{
+            0:{items:1},
+            640:{items:1},
+            768:{items:2},
+            992:{items:3},
+            1200:{items:3}
+        }
+    });
+});
+
+</script>

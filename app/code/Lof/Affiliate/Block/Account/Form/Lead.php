@@ -29,6 +29,11 @@ class Lead extends \Magento\Framework\View\Element\Template
      */
     protected $session;
     /**
+     * \Magento\Framework\App\ResourceConnection
+     * @var [type]
+     */
+    protected $_resource;
+    /**
      * @var PriceCurrencyInterface
      */
     protected $priceCurrency;
@@ -40,6 +45,7 @@ class Lead extends \Magento\Framework\View\Element\Template
         \Lof\Affiliate\Model\ResourceModel\LeadAffiliate\Collection $leadCollectionFactory,
         \Lof\Affiliate\Model\AccountAffiliateFactory $accountCollectionFactory,
         Session $customerSession,
+        \Magento\Framework\App\ResourceConnection $resource,
         \Lof\Affiliate\Helper\Data $helper,
         PriceCurrencyInterface $priceCurrency,
         array $data = []
@@ -47,6 +53,7 @@ class Lead extends \Magento\Framework\View\Element\Template
         $this->_leadCollectionFactory = $leadCollectionFactory;
         $this->_accountCollectionFactory = $accountCollectionFactory;
         $this->session = $customerSession;
+        $this->_resource = $resource;
         $this->priceCurrency = $priceCurrency;
         $this->_helper = $helper;
         parent::__construct($context, $data);

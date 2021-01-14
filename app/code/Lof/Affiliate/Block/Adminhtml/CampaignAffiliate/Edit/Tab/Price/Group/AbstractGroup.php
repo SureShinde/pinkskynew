@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Block\Adminhtml\CampaignAffiliate\Edit\Tab\Price\Group;
 
 use Magento\Backend\Block\Widget;
@@ -114,8 +113,7 @@ abstract class AbstractGroup extends Widget implements RendererInterface
         \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
         \Magento\Framework\Locale\CurrencyInterface $localeCurrency,
         array $data = []
-    )
-    {
+    ) {
         $this->_groupRepository = $groupRepository;
         $this->_directoryHelper = $directoryHelper;
         $this->moduleManager = $moduleManager;
@@ -208,6 +206,7 @@ abstract class AbstractGroup extends Widget implements RendererInterface
     }
 
 
+    
     /**
      * getTypeOrdersNumber
      *
@@ -220,13 +219,12 @@ abstract class AbstractGroup extends Widget implements RendererInterface
         }
 
         $this->_typeOrderNext = [
-            0 => __('The total number of completed orders'),
+            0 => __('The total number of completed orders'), 
             1 => __('The total price of completed orders'),
         ];
 
         return $this->_typeOrderNext;
     }
-
     /**
      * getTypeOrders
      *
@@ -239,7 +237,7 @@ abstract class AbstractGroup extends Widget implements RendererInterface
         }
 
         $this->_typeOrder = [
-            0 => __('Percentage of current order'),
+            0 => __('Percentage of current order'), 
             1 => __('Fixed amount'),
         ];
 
@@ -310,5 +308,5 @@ abstract class AbstractGroup extends Widget implements RendererInterface
     {
         return $this->getElement()->getEntityAttribute();
     }
-
+    
 }

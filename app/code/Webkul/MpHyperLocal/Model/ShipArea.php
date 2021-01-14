@@ -37,7 +37,7 @@ class ShipArea extends AbstractModel implements ShipAreaInterface
      */
     protected function _construct()
     {
-        $this->_init(\Webkul\MpHyperLocal\Model\ResourceModel\ShipArea::class);
+        $this->_init('Webkul\MpHyperLocal\Model\ResourceModel\ShipArea');
     }
     /**
      * Get EntityId.

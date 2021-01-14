@@ -3,7 +3,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Controller\Account;
 
 use Magento\Customer\Model\Account\Redirect as AccountRedirect;
@@ -74,7 +73,7 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
     /** @var \Magento\Framework\UrlInterface */
     protected $urlModel;
 
-    /** @var DataObjectHelper */
+    /** @var DataObjectHelper  */
     protected $dataObjectHelper;
 
     /**
@@ -102,7 +101,6 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
     protected $_stdTimezone;
     protected $_accountAffiliate;
     protected $_affiliateData;
-
     /**
      * @param Context $context
      * @param Session $customerSession
@@ -144,12 +142,11 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
         CustomerExtractor $customerExtractor,
         DataObjectHelper $dataObjectHelper,
         AccountRedirect $accountRedirect,
-
+        
         Timezone $stdTimezone,
         AccountAffiliate $accountAffiliate,
         AffiliateData $affiliateData
-    )
-    {
+    ) {
         $this->session = $customerSession;
         $this->scopeConfig = $scopeConfig;
         $this->storeManager = $storeManager;
@@ -177,8 +174,8 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
     /**
      * Retrieve cookie manager
      *
-     * @return \Magento\Framework\Stdlib\Cookie\PhpCookieManager
      * @deprecated
+     * @return \Magento\Framework\Stdlib\Cookie\PhpCookieManager
      */
     private function getCookieManager()
     {
@@ -193,8 +190,8 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
     /**
      * Retrieve cookie metadata factory
      *
-     * @return \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory
      * @deprecated
+     * @return \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory
      */
     private function getCookieMetadataFactory()
     {
@@ -277,10 +274,10 @@ class CreatePost extends \Magento\Customer\Controller\AbstractAccount
         $checkAccountExist = $this->_accountAffiliate->checkAccountExist($emailCustomer);
         if ($this->session->isLoggedIn() && $checkAccountExist == '0') {
             $customerData = $this->session->getCustomer();
-
-
+            
+            
             $this->_affiliateData->createAffiliateAccount($data, $customerData);
-
+            
             $resultRedirect->setPath('*/*/edit');
             return $resultRedirect;
         }

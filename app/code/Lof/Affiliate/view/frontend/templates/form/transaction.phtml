@@ -19,7 +19,6 @@ $start       = $size - (($currentPage - 1) * $limit);
                     <th scope="col" class="col shipping"><?php /* @escapeNotVerified */ echo __('Description') ?></th>
                     <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Order Total') ?></th>
                     <th scope="col" class="col total"><?php /* @escapeNotVerified */ echo __('Commission Total') ?></th>
-                    <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Transaction Status') ?></th>
                     <th scope="col" class="col status"><?php /* @escapeNotVerified */ echo __('Order Status') ?></th>
                 </tr>
             </thead>
@@ -32,7 +31,6 @@ $start       = $size - (($currentPage - 1) * $limit);
                     <td data-th="<?php echo $block->escapeHtml(__('Description')) ?>" class="col shipping"><?php echo $_collection->getDescription(); ?></td>
                     <td data-th="<?php echo $block->escapeHtml(__('Order Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $block->formatCurrency($_collection->getOrderTotal()) ?></td>
                     <td data-th="<?php echo $block->escapeHtml(__('Commission Total')) ?>" class="col total"><?php /* @escapeNotVerified */ echo $block->formatCurrency($_collection->getCommissionTotal()) ?></td>
-                    <td data-th="<?php echo $block->escapeHtml(__('Transaction Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $_collection->getTransactionStt() ?></td>
                     <td data-th="<?php echo $block->escapeHtml(__('Order Status')) ?>" class="col status"><?php /* @escapeNotVerified */ echo $_collection->getOrderStatus() ?></td>
                 </tr>
                 <?php $total += $_collection->getCommissionTotal();?>

@@ -4,7 +4,6 @@
  * Copyright © 2016 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Lof\Affiliate\Controller\Account;
 
 use Magento\Customer\Model\Registration;
@@ -45,8 +44,7 @@ class Create extends \Magento\Customer\Controller\AbstractAccount
         PageFactory $resultPageFactory,
         Registration $registration,
         \Lof\Affiliate\Helper\Data $helper
-    )
-    {
+    ) {
         $this->session = $customerSession;
         $this->resultPageFactory = $resultPageFactory;
         $this->registration = $registration;
@@ -65,7 +63,7 @@ class Create extends \Magento\Customer\Controller\AbstractAccount
             $data = [];
             $customerData = $this->session->getCustomer();
             $this->helper->createAffiliateAccount($data, $customerData);
-
+            
             /** @var \Magento\Framework\Controller\Result\Redirect $resultRedirect */
             $resultRedirect = $this->resultRedirectFactory->create();
             $resultRedirect->setPath('*/*');

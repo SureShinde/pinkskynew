@@ -177,6 +177,27 @@ $email = $customerSession->getCustomer()->getEmail();
             </div>
 
             <?php echo $this->getChildHtml("check.list.payments"); ?>
+            <!--
+            <div class="field payment paypal_email">
+                <label for="paypal_email" class="label"><span><?php /* @escapeNotVerified */ echo __('Paypal Email') ?></span></label>
+                <div class="control">
+                    <input type="text" name="paypal_email" id="paypal_email" title="<?php /* @escapeNotVerified */ echo __('Paypal Email') ?>" class="input-text" data-validate="{required:false, 'validate-email':true}" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="field payment skrill_email">
+                <label for="skrill_email" class="label"><span><?php /* @escapeNotVerified */ echo __('Skrill Email') ?></span></label>
+                <div class="control">
+                    <input type="text" name="skrill_email" id="skrill_email" title="<?php /* @escapeNotVerified */ echo __('Skrill Email') ?>" class="input-text" data-validate="{required:false, 'validate-email':true}" autocomplete="off">
+                </div>
+            </div>
+            <div class="field payment braintree_id">
+                <label for="braintree_id" class="label"><span><?php /* @escapeNotVerified */ echo __('Braintree Merchant Account Id') ?></span></label>
+                <div class="control">
+                    <input type="text" name="braintree_id" id="braintree_id" title="<?php /* @escapeNotVerified */ echo __('Braintree Merchant Account Id') ?>" class="input-text" data-validate="{required:false}" autocomplete="off">
+                </div>
+            </div>
+            -->
             <?php echo $this->getChildHtml("extra.payments"); ?>
         </fieldset>
         <div class="actions-toolbar">

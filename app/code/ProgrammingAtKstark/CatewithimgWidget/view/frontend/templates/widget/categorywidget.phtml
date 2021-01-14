@@ -1,6 +1,7 @@
 <?php
     $categories = $this->getCategoryCollection();
     $categoryHelper = $this->getCategoryHelper();
+    $categorycount = count($categories);
 ?>
 <div class="widget block block-static-block cwiw" id="catewithimg">
     <div class="block-content">
@@ -25,6 +26,12 @@
         <?php endforeach; ?>
         </div>
     </div>
+    <div class="wk-mp-collection-view-btn">
+            <a href="all-categories" title="<?= $block->escapeHtml(__('View Collection'))?>" class="btn btn-info" >
+                <?= $block->escapeHtml(__('See more', $categorycount))?>
+            </a>
+
+        </div>
 </div>
 
 <script type="text/javascript">
@@ -32,7 +39,7 @@ require(['jquery','owl.carousel/owl.carousel.min'],function($){
     var element = '#catewithimg .owl-carousel';
     $(element).owlCarousel({
         autoplay:true,
-        autoplayTimeout:5000,
+        autoplayTimeout:2000,
         autoplayHoverPause:true,
         loop:true,
         navRewind:true,

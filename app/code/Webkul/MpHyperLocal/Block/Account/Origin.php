@@ -40,7 +40,7 @@ class Origin extends Template
 
     /**
      * getOrigin
-     *
+     * 
      * @return bool|array
      */
     public function getOrigin()
@@ -64,7 +64,7 @@ class Origin extends Template
 
     /**
      * Get Form Save Action URL
-     *
+     * 
      * @return string
      */
     public function getSaveAction()

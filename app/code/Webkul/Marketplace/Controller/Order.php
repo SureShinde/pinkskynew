@@ -38,6 +38,9 @@ use Webkul\Marketplace\Model\OrdersFactory as MpOrdersModel;
 use Magento\Sales\Model\ResourceModel\Order\Invoice\Collection as InvoiceCollection;
 use Webkul\Marketplace\Model\SellerFactory as MpSellerModel;
 
+// for LOF Observer to handle affiliate transaction processing, implemented by Nir Banerjee, Apex Division
+use Lof\Affiliate\Observer\PlaceAfter;
+
 abstract class Order extends Action
 {
     /**
@@ -191,6 +194,9 @@ abstract class Order extends Action
      */
     protected $logger;
 
+    // for LOF Observer to handle affiliate transaction processing, implemented by Nir Banerjee, Apex Division
+    public $observer;
+
     /**
      * @param Context                                          $context
      * @param PageFactory                                      $resultPageFactory
@@ -255,7 +261,8 @@ abstract class Order extends Action
         \Magento\Sales\Api\InvoiceManagementInterface $invoiceManagement,
         \Magento\Catalog\Model\ProductFactory $productModel,
         MpSellerModel $mpSellerModel,
-        \Psr\Log\LoggerInterface $logger
+        \Psr\Log\LoggerInterface $logger,
+        PlaceAfter $observer    // for LOF Observer to handle affiliate transaction processing, implemented by Nir Banerjee, Apex Division
     ) {
         $this->_coreRegistry = $coreRegistry;
         $this->_invoiceSender = $invoiceSender;
@@ -287,6 +294,7 @@ abstract class Order extends Action
         $this->productModel = $productModel;
         $this->mpSellerModel = $mpSellerModel;
         $this->logger = $logger;
+        $this->observer = $observer;    // for LOF Observer to handle affiliate transaction processing, implemented by Nir Banerjee, Apex Division
         parent::__construct($context);
     }
 

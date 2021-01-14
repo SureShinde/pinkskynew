@@ -968,8 +968,8 @@ body>.onepage-cat.category-list{display:none}
 .account .sidebar .product-items .product-item-name a{overflow:visible;white-space:normal;text-overflow:unset}
 .account .block-reorder .product-item{padding:5px 0}
 .account .block-reorder .product-item .field.item{display:inline-block;vertical-align:top}
-.account .block-reorder .product-item-name{display:inline-block;width:calc(100% - 30px);vertical-align:top} }
-.account-nav .nav>li{padding:0;position:relative;line-height:1.3;margin:0}
+.account .block-reorder .product-item-name{display:inline-block;width:calc(100% - 30px);vertical-align:top} 
+.account-nav .nav>li{padding:0;position:relative;line-height:1.3;margin:0;}
 .account-nav .nav>li>a{color:#777;padding:8px 15px;border-bottom:1px solid #ddd;display:block}
 .account-nav .nav>li>a:focus,.account-nav .nav>li>a:hover{background:0 0}
 .account-nav .nav>li>a:before,.account-nav .nav>li>strong:before{content:'\f821';font-family:porto-icons;position:absolute;left:5px}
@@ -1238,6 +1238,10 @@ table .col{width:auto}
 .weltpixel-quickview-catalog-product-view .product.media .product-image-carousel img,.weltpixel_quickview-catalog_product-view .product.media .product-image-carousel img{width:100%}
 .fieldset>.field.qty,.nested.options-list>.field.qty{margin-right:7px}
 .product-info-main .box-tocart .actions{margin-right:5px}
+.product-info-main .box-tocart .actions button.primary.tocart{background-color: #f4f4f4 ;color: #6f6e6c ;}
+.product-info-main .box-tocart .actions button.primary.tocart:hover{background-color:#f36daa;border-color:#f36daa !important; color: #FFFFFF}
+
+
 @media (min-width:768px){.box-tocart .action.tocart{min-width:135px;padding:0 14px}}
 .product-info-main .product.overview{padding-bottom:20px}
 .block-minicart .block-content>.actions>.secondary .action.viewcart{font-weight:400}
@@ -1554,8 +1558,8 @@ ul.dropdown.switcher-dropdown{width:auto!important}}
 .nav-open .page-wrapper{left:380px;width:100%}}
 .product-item-actions .action.towishlist{color:#333}
 .products-grid.divider-line .product-item{padding-top:0;padding-bottom:0}
-.products-grid .product-item-details .product-item-actions .actions-secondary{border:0;background-color:#ddd;line-height:34px}
-.products-grid .product-item-details .product-item-actions .actions-secondary:hover{background-color:#08c;color:#fff}
+.products-grid .product-item-details .product-item-actions .actions-secondary a{border:0;background-color:#ddd;line-height:34px}
+.products-grid .product-item-details .product-item-actions .actions-secondary:hover{background-color:transparent !important;color:#fff}
 .products-grid.no-padding{margin:0}
 .products-grid.no-padding .product-item{padding:0}
 .product-item-info .product.name a{text-decoration:none;font-family:"Open Sans";font-size:15px;font-weight:400}
@@ -2185,4 +2189,118 @@ hr.solid {
 }
 .products-grid.small-list {
     margin: 0;
+}
+
+
+
+/*changes on 27-10-2020*/
+
+.products-grid .product-item-info:hover .product-item-details .product-item-actions .tocart{background-color:#f36daa !important;border-color:#f36daa !important;color:#fff;}
+.page-header.type5:not(.header-newskin) .block-search input{border: 5px solid #f36daa;    font-family: 'EB Garamond', serif;}
+.page-header.type5:not(.header-newskin) .block-search .action.search:before{color:#f36daa;}
+.page-header.type5:not(.header-newskin) .block-search:before {border: 10px solid transparent;border-bottom-color: #f36daa;}
+.page-header.type5:not(.header-newskin) .block-search .action.search{border-color: #f36daa;}
+.searchsuite-autocomplete .product{display:none;}
+.row-am.whats-new .block .block-new-products .block-title strong{
+    text-align: center;
+    font-family: "Bree W01 Thin Oblique";
+    font-size: 50px;
+    color: #000000;
+    line-height: 60px;
+    margin: 0 0 30px;
+    position: relative;
+    padding-bottom: 10px;
+    display:block;
+    font-weight:500;
+}
+.row-am.whats-new .block .block-new-products .block-title strong::after {
+    width: 80px;
+    background: #e8e8e6;
+    height: 5px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+    content: '';
+    bottom: 0;
+    border-radius: 10px;
+}
+.products-grid .product-item-details .product-item-actions .actions-secondary a:hover{background-color:#000;color:#fff;} 
+.fotorama__wrap--css3 .fotorama__stage__shaft .zoomImg{background-color: rgb(255, 255, 255);}
+
+.category-faqs-sellers .page-main .category-view .category-cms h1,
+.category-faqs-buyers .page-main .category-view .category-cms h1{display: table;width: 100%;    padding-bottom: 10px;border-bottom: 1px solid #ddd;margin-bottom: 20px;}
+.category-faqs-sellers .page-main .category-view .category-cms h1 span,
+.category-faqs-buyers .page-main .category-view .category-cms h1 span{display: table-cell;vertical-align: middle;width: 70%;font-size: 19pt !important;}
+.category-faqs-sellers .page-main .category-view .category-cms h1 p,
+.category-faqs-buyers .page-main .category-view .category-cms h1 p{display: table-cell;vertical-align: middle;width: 30%;font-size: 16px;text-align: right;}
+.category-faqs-sellers .page-main .category-view .category-cms h1 p a,
+.category-faqs-buyers .page-main .category-view .category-cms h1 p a{
+    text-transform: uppercase;
+    font-size: 13.53px;
+    font-family: 'Oswald';
+    font-weight: 400;
+    letter-spacing: 0.025em;
+    color: #6f6e6c;
+    background-color: #fff;
+    border:1px solid #666;
+    padding: 0 15px;
+    line-height: 34px;
+    display: inline-block;
+    margin-left: 10px;
+}
+.category-faqs-sellers .page-main .category-view .category-cms h1 p a:hover,
+.category-faqs-buyers .page-main .category-view .category-cms h1 p a:hover{
+    text-decoration: none;
+    background-color: #f36daa;
+    border: 1px solid #f36daa;
+    color: #fff;
+}
+.category-faqs-sellers .page-main .category-view #accordion.panel-group .panel .panel-heading,
+.category-faqs-buyers .page-main .category-view #accordion.panel-group .panel .panel-heading{padding-right: 35px;position: relative;}
+.category-faqs-sellers .page-main .category-view #accordion.panel-group .panel .panel-heading .panel-title a,
+.category-faqs-buyers .page-main .category-view #accordion.panel-group .panel .panel-heading .panel-title a{display: block;}
+
+.category-faqs-sellers .page-main .category-view #accordion.panel-group .panel .panel-heading .panel-title a:before, 
+.category-faqs-buyers .page-main .category-view #accordion.panel-group .panel .panel-heading .panel-title a:before {
+    position: absolute;
+    content: "\f067";
+   
+    right: 7px;
+    color: #666;
+    top: 50%;
+    height: auto;
+    width: auto;
+    z-index: 8;
+    transform: translate(-50%,-50%);
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.category-faqs-sellers .page-main .category-view #accordion.panel-group .panel .panel-heading .panel-title a[aria-expanded="true"]:before,
+.category-faqs-buyers .page-main .category-view #accordion.panel-group .panel .panel-heading .panel-title a[aria-expanded="true"]:before{content: "\f068";}
+.wk-mp-collection-view-btn .btn{text-decoration: none;background-color: #f36daa;border: 1px solid #f36daa;color: #fff;text-transform: uppercase;font-size: 13.53px;font-family: 'Oswald';}
+.sw-megamenu.navigation li.level0.fullwidth .submenu li.level1 > a, .sw-megamenu.navigation li.level0.staticwidth .submenu li.level1 > a{text-transform: unset;font-size: 15px;}
+.page-header.type5:not(.header-newskin) .navigation .level0.parent>a:after {line-height: 30px;}
+
+.product-add-form .box-tocart .moved-add-to-links {display: inline-block;vertical-align: top;height: 42px;width: 42px;text-align: center;border: 1px solid #ddd;}
+.product-add-form .box-tocart .moved-add-to-links a{margin-right: 0px;color: #f36daa;}
+.product-add-form .box-tocart .moved-add-to-links:hover {background-color: #fff;}
+.cms-index-index .home-ban .jumbotron {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.0);
+}
+@media (max-width: 767px){
+    .category-faqs-sellers .page-main .category-view .category-cms h1 span{width: 10%;}
+}
+@media (max-width: 767px){
+    .category-faqs-sellers .page-main .category-view .category-cms h1 span{width: 28%;}
+    .category-faqs-sellers .page-main .category-view .category-cms h1 p a{margin-top: 3px;}
 }

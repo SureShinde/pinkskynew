@@ -15,7 +15,7 @@
     <body>
         <referenceBlock name="seller.page.main.title">
             <action method="setPageTitle">
-                <argument translate="true" name="title" xsi:type="string">Earnings</argument>
+                <argument translate="true" name="title" xsi:type="string">Earningsss</argument>
             </action>
         </referenceBlock>
         <referenceContainer name="seller.content">

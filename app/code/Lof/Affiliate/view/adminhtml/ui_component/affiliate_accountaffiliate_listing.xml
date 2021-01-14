@@ -46,8 +46,8 @@
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
                     <item name="update_url" xsi:type="url" path="mui/index/render"/>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="indexField" xsi:type="string">accountaffiliate_id</item>
+                    <item name="storageConfig" xsi:type="array">      
+                        <item name="indexField" xsi:type="string">accountaffiliate_id</item>  
                     </item>
                 </item>
             </argument>
@@ -320,18 +320,6 @@
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
                     <item name="label" xsi:type="string" translate="true">Affiliate Since</item>
                     <item name="sortOrder" xsi:type="number">100</item>
-                </item>
-            </argument>
-        </column>
-        <column name="is_active">
-            <argument name="data" xsi:type="array">
-                <item name="options" xsi:type="object">Magento\Cms\Model\Page\Source\IsActive</item>
-                <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">select</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
-                    <item name="editor" xsi:type="string">select</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="label" xsi:type="string" translate="true">Status</item>
                 </item>
             </argument>
         </column>

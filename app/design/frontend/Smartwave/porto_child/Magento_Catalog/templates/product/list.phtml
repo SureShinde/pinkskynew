@@ -3,6 +3,7 @@
  * Copyright © 2015 Magento. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 use Magento\Framework\App\Action\Action;
 
 // @codingStandardsIgnoreFile
@@ -147,9 +148,9 @@ $_lazyload = $_portohelper->getConfig('porto_settings/optimization/lazyload');
                                             <?php endif;?>
                                             <?php echo $block->getBlockHtml('formkey')?>
                                             <button type="submit"
-                                                    title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                    title="<?php echo $block->escapeHtml(__('Add to Bag')); ?>"
                                                     class="action tocart primary">
-                                                <span><?php echo __('Add to Cart') ?></span>
+                                                <span><?php echo __('Add to Bag') ?></span>
                                             </button>
                                         </form>
                                     <?php else: ?>
@@ -303,9 +304,9 @@ $_lazyload = $_portohelper->getConfig('porto_settings/optimization/lazyload');
                                             <?php endif;?>
                                             <?php echo $block->getBlockHtml('formkey')?>
                                             <button type="submit"
-                                                    title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                    title="<?php echo $block->escapeHtml(__('Add to Bag')); ?>"
                                                     class="action tocart primary">
-                                                <span><?php echo __('Add to Cart') ?></span>
+                                                <span><?php echo __('Add to Bag') ?></span>
                                             </button>
                                         </form>
                                     <?php else: ?>

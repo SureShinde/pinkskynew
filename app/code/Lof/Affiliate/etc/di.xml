@@ -22,9 +22,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- <preference for="Magento\Catalog\Controller\Product\View" type="Lof\Affiliate\Controller\Product\View" />  -->
-    <preference for="Lof\Affiliate\Api\Data\AccountInterface" type="Lof\Affiliate\Model\AccountAffiliate" />
-    <preference for="Lof\Affiliate\Api\AccountRepositoryInterface" type="Lof\Affiliate\Model\AccountAffiliateRepository" />
-
+    
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">

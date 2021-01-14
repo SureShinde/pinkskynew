@@ -1,24 +1,23 @@
 <?php
 /**
  * Venustheme
- *
+ * 
  * NOTICE OF LICENSE
- *
+ * 
  * This source file is subject to the venustheme.com license that is
  * available through the world-wide-web at this URL:
  * http://venustheme.com/license
- *
+ * 
  * DISCLAIMER
- *
+ * 
  * Do not edit or add to this file if you wish to upgrade this extension to newer
  * version in the future.
- *
+ * 
  * @category   Venustheme
  * @package    Lof_Affiliate
  * @copyright  Copyright (c) 2016 Landofcoder (http://www.venustheme.com/)
  * @license    http://www.venustheme.com/LICENSE-1.0.html
  */
-
 namespace Lof\Affiliate\Model;
 
 use Magento\Customer\Model\Session;
@@ -51,6 +50,18 @@ class LeadAffiliate extends \Magento\Framework\Model\AbstractModel
     /**
      * Page cache tag
      */
+    /**
+     * @param \Magento\Framework\Model\Context                          $context                  
+     * @param \Magento\Framework\Registry                               $registry                 
+     * @param \Magento\Store\Model\StoreManagerInterface                $storeManager             
+     * @param \Ves\Blog\Model\ResourceModel\Blog|null                      $resource                 
+     * @param \Ves\Blog\Model\ResourceModel\Blog\Collection|null           $resourceCollection       
+     * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory 
+     * @param \Magento\Store\Model\StoreManagerInterface                $storeManager             
+     * @param \Magento\Framework\UrlInterface                           $url                      
+     * @param \Ves\Blog\Helper\Data                                    $brandHelper              
+     * @param array                                                     $data                     
+     */
     public function __construct(
         \Magento\Framework\Model\Context $context,
         \Magento\Framework\Registry $registry,
@@ -62,8 +73,7 @@ class LeadAffiliate extends \Magento\Framework\Model\AbstractModel
         Session $customerSession,
         \Magento\Framework\App\ResourceConnection $resourceModel,
         array $data = []
-    )
-    {
+        ) {
         $this->_url = $url;
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->_resource = $resource;

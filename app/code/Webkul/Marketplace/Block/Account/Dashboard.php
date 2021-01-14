@@ -604,6 +604,23 @@ class Dashboard extends \Magento\Framework\View\Element\Template
         return count($collection);
     }
 
+    public function getNewOrders()
+    {
+        $sellerId = $this->getCustomerId();
+        $collection = $this->mpSaleslistCollectionFactory->create()
+        ->addFieldToFilter(
+            'seller_id',
+            $sellerId
+        )
+        ->getTotalOrders()
+        ->getSellerOrderCollection();
+        $collection->addFieldToFilter(
+            'state',
+            'new'
+        );
+        return count($collection);
+    }
+
     public function getPendingOrders()
     {
         $sellerId = $this->getCustomerId();
@@ -615,8 +632,8 @@ class Dashboard extends \Magento\Framework\View\Element\Template
         ->getTotalOrders()
         ->getSellerOrderCollection();
         $collection->addFieldToFilter(
-            'status',
-            'pending'
+            'state',
+            ['pending','new']
         );
         return count($collection);
     }
@@ -632,7 +649,7 @@ class Dashboard extends \Magento\Framework\View\Element\Template
         ->getTotalOrders()
         ->getSellerOrderCollection();
         $collection->addFieldToFilter(
-            'status',
+            'state',
             'processing'
         );
         return count($collection);
@@ -649,7 +666,7 @@ class Dashboard extends \Magento\Framework\View\Element\Template
         ->getTotalOrders()
         ->getSellerOrderCollection();
         $collection->addFieldToFilter(
-            'status',
+            'state',
             'complete'
         );
         return count($collection);
